@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@tanstack/react-query':
+    specifier: ^5.64.1
+    version: 5.64.1(react@18.3.1)
   class-variance-authority:
     specifier: ^0.7.1
     version: 0.7.1
@@ -27,6 +30,9 @@ devDependencies:
   '@eslint/js':
     specifier: ^9.17.0
     version: 9.17.0
+  '@tanstack/eslint-plugin-query':
+    specifier: ^5.62.16
+    version: 5.62.16(eslint@9.17.0)(typescript@5.6.2)
   '@types/node':
     specifier: ^22.10.7
     version: 22.10.7
@@ -785,6 +791,31 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@tanstack/eslint-plugin-query@5.62.16(eslint@9.17.0)(typescript@5.6.2):
+    resolution: {integrity: sha512-VhnHSQ/hc62olLzGhlLJ4BJGWynwjs3cDMsByasKJ3zjW1YZ+6raxOv0gHHISm+VEnAY42pkMowmSWrXfL4NTw==}
+    peerDependencies:
+      eslint: ^8.57.0 || ^9.0.0
+    dependencies:
+      '@typescript-eslint/utils': 8.18.2(eslint@9.17.0)(typescript@5.6.2)
+      eslint: 9.17.0
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+    dev: true
+
+  /@tanstack/query-core@5.64.1:
+    resolution: {integrity: sha512-978Wx4Wl4UJZbmvU/rkaM9cQtXXrbhK0lsz/UZhYIbyKYA8E4LdomTwyh2GHZ4oU0BKKoDH4YlKk2VscCUgNmg==}
+    dev: false
+
+  /@tanstack/react-query@5.64.1(react@18.3.1):
+    resolution: {integrity: sha512-vW5ggHpIO2Yjj44b4sB+Fd3cdnlMJppXRBJkEHvld6FXh3j5dwWJoQo7mGtKI2RbSFyiyu/PhGAy0+Vv5ev9Eg==}
+    peerDependencies:
+      react: ^18 || ^19
+    dependencies:
+      '@tanstack/query-core': 5.64.1
+      react: 18.3.1
+    dev: false
 
   /@types/babel__core@7.20.5:
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
