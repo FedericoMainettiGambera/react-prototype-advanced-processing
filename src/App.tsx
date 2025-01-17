@@ -1,11 +1,19 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter } from "react-router";
+import AppWrapper from "./components/layout/AppWrapper";
+import "./index.css";
+import AppRouter from "./router/AppRouter";
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <h1 className="text-3xl font-bold">React + typescript + tailwind</h1>
+      <BrowserRouter>
+        <AppWrapper>
+          <AppRouter />
+        </AppWrapper>
+      </BrowserRouter>
     </QueryClientProvider>
   );
 }
