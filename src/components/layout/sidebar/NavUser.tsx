@@ -64,20 +64,20 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => setTheme("light")}>
               <Sun className="h-[1.2rem] w-[1.2rem]" />
-              Light
+              Chiaro
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => setTheme("dark")}>
               <Moon className="h-[1.2rem] w-[1.2rem]" />
-              Dark
+              Scuro
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => setTheme("system")}>
               <Laptop className="h-[1.2rem] w-[1.2rem]" />
-              System
+              Sistema
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <LogOut />
-              Log out
+              Esci
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

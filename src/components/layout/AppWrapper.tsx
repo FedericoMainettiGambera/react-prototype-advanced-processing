@@ -1,10 +1,17 @@
 import type { PropsWithChildren } from "react";
+import { useLocation } from "react-router";
 import { Separator } from "../ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "../ui/sidebar";
 import AppBreadcrumb from "./sidebar/AppBreadcrumb";
 import { AppSidebar } from "./sidebar/AppSidebar";
 
 export default function AppWrapper({ children }: PropsWithChildren) {
+  const location = useLocation();
+
+  if (location.pathname === "/signin") {
+    return <>{children}</>;
+  }
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -16,9 +23,7 @@ export default function AppWrapper({ children }: PropsWithChildren) {
             <AppBreadcrumb />
           </div>
         </header>
-        <div>
-          {children}
-        </div>
+        <div>{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );

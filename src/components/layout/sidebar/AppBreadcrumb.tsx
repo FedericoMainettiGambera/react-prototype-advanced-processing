@@ -15,14 +15,12 @@ export default function AppBreadcrumb() {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem className="hidden md:block">
-          {location.pathname.startsWith("/users") && <BreadcrumbLink href="#">Utenti</BreadcrumbLink>}
-          {location.pathname.startsWith("/devices") && <BreadcrumbLink href="#">Dispositivi</BreadcrumbLink>}
-          {location.pathname.startsWith("/services") && <BreadcrumbLink href="#">Servizi</BreadcrumbLink>}
-          {location.pathname.startsWith("/settings") && <BreadcrumbLink href="#">Impostazioni</BreadcrumbLink>}
+          {location.pathname.startsWith("/users") && <BreadcrumbLink href="/users">Utenti</BreadcrumbLink>}
+          {location.pathname.startsWith("/devices") && <BreadcrumbLink href="/devices">Dispositivi</BreadcrumbLink>}
         </BreadcrumbItem>
         <BreadcrumbSeparator className="hidden md:block" />
         <BreadcrumbItem>
-          <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+          <BreadcrumbPage>TODO</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
