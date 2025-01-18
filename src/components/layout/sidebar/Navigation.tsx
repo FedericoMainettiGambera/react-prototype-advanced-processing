@@ -12,8 +12,7 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { useState } from "react";
 
 export type Route = {
   path: string;
@@ -62,17 +61,7 @@ export function Navigation() {
 }
 
 export function RouteGroup({ group }: { group: RouteGroup }) {
-  const location = useLocation();
-
   const [isOpen, setIsOpen] = useState(false);
-  const [isActive, setIsActive] = useState(false);
-
-  useEffect(() => {
-    const currentPath = location.pathname;
-    const active = group.routes.some(route => route.path === currentPath);
-    setIsActive(active);
-  }, [location.pathname, group.routes]);
-
   const firstRoute = group.routes[0];
 
   if (!firstRoute) {
@@ -80,14 +69,12 @@ export function RouteGroup({ group }: { group: RouteGroup }) {
   }
 
   return (
-    <Collapsible key={group.label} open={isOpen || isActive} onOpenChange={setIsOpen}>
+    <Collapsible key={group.label} open={isOpen} onOpenChange={setIsOpen}>
       <CollapsibleTrigger asChild>
         <SidebarMenuItem>
-          <SidebarMenuButton asChild tooltip={group.label}>
-            <div>
-              <group.icon />
-              <span>{group.label}</span>
-            </div>
+          <SidebarMenuButton tooltip={group.label}>
+            <group.icon />
+            <span>{group.label}</span>
           </SidebarMenuButton>
           {Boolean(group.routes.length) && (
             <>
