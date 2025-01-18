@@ -19,15 +19,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="#">
+              <div>
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <img src="images/logo.png" alt="Advanced Processing's logo" />
+                  <img src="/images/logo.png" alt="Advanced Processing's logo" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">Advanced Processing</span>
                   <span className="truncate text-xs">Enterprise</span>
                 </div>
-              </a>
+              </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -40,7 +40,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           user={{
             email: "test@test.it",
             name: "Test test",
-            avatar: "images/avatar.png"
+            avatar: "/images/avatar.png",
           }}
         />
       </SidebarFooter>

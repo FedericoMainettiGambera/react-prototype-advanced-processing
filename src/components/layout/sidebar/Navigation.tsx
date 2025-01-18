@@ -1,4 +1,4 @@
-import { ChevronRight, Settings, SquareTerminal, Users, type LucideIcon } from "lucide-react";
+import { ChevronRight, Users, type LucideIcon } from "lucide-react";
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import {
@@ -11,6 +11,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
+import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 
@@ -27,35 +28,25 @@ export type RouteGroup = {
 
 const routeGroups: RouteGroup[] = [
   {
-    label: "Features",
+    label: "Funzionalità",
     icon: Users,
     routes: [
       { label: "Users", path: "/users" },
       { label: "Devices", path: "/devices" },
     ],
   },
-  {
-    label: "Servizi",
-    icon: SquareTerminal,
-    routes: [
-      { label: "Misure", path: "/services/measures" },
-      { label: "Dettagli Misure", path: "/services/measures-details/:id" },
-      { label: "Monitor Misure", path: "/services/measures-monitor" },
-      { label: "Luoghi", path: "/services/places" },
-      { label: "Test Dispositivi", path: "/services/devices-test" },
-      { label: "Accesso", path: "/services/access" },
-    ],
-  },
-  {
-    label: "Impostazioni",
-    icon: Settings,
-    routes: [
-      { label: "Grafica", path: "/settings/graphic" },
-      { label: "Informazioni", path: "/settings/about" },
-      { label: "Contratto", path: "/settings/contract" },
-      { label: "Chi Siamo", path: "/about" },
-    ],
-  },
+  // {
+  //   label: "Servizi",
+  //   icon: SquareTerminal,
+  //   routes: [
+  //     { label: "Misure", path: "/services/measures" },
+  //     { label: "Dettagli Misure", path: "/services/measures-details/:id" },
+  //     { label: "Monitor Misure", path: "/services/measures-monitor" },
+  //     { label: "Luoghi", path: "/services/places" },
+  //     { label: "Test Dispositivi", path: "/services/devices-test" },
+  //     { label: "Accesso", path: "/services/access" },
+  //   ],
+  // },
 ] as const;
 
 export function Navigation() {
@@ -89,38 +80,38 @@ export function RouteGroup({ group }: { group: RouteGroup }) {
   }
 
   return (
-    <Collapsible key={group.label} asChild open={isActive || isOpen} onOpenChange={setIsOpen}>
-      <SidebarMenuItem>
-        <SidebarMenuButton asChild tooltip={group.label}>
-          <a href={firstRoute.path}>
-            <group.icon />
-            <span>{firstRoute.label}</span>
-          </a>
-        </SidebarMenuButton>
-        {Boolean(group.routes.length) && (
-          <>
-            <CollapsibleTrigger asChild>
-              <SidebarMenuAction className="data-[state=open]:rotate-90" onClick={() => setIsOpen(prev => !prev)}>
+    <Collapsible key={group.label} open={isOpen || isActive} onOpenChange={setIsOpen}>
+      <CollapsibleTrigger asChild>
+        <SidebarMenuItem>
+          <SidebarMenuButton asChild tooltip={group.label}>
+            <div>
+              <group.icon />
+              <span>{group.label}</span>
+            </div>
+          </SidebarMenuButton>
+          {Boolean(group.routes.length) && (
+            <>
+              <SidebarMenuAction className={cn(isOpen && "rotate-90")} onClick={() => setIsOpen(prev => !prev)}>
                 <ChevronRight />
                 <span className="sr-only">Toggle</span>
               </SidebarMenuAction>
-            </CollapsibleTrigger>
-            <CollapsibleContent>
-              <SidebarMenuSub>
-                {group.routes?.map(route => (
-                  <SidebarMenuSubItem key={route.label}>
-                    <SidebarMenuSubButton asChild>
-                      <a href={route.path}>
-                        <span>{route.label}</span>
-                      </a>
-                    </SidebarMenuSubButton>
-                  </SidebarMenuSubItem>
-                ))}
-              </SidebarMenuSub>
-            </CollapsibleContent>
-          </>
-        )}
-      </SidebarMenuItem>
+              <CollapsibleContent>
+                <SidebarMenuSub>
+                  {group.routes?.map(route => (
+                    <SidebarMenuSubItem key={route.label}>
+                      <SidebarMenuSubButton asChild>
+                        <a href={route.path}>
+                          <span>{route.label}</span>
+                        </a>
+                      </SidebarMenuSubButton>
+                    </SidebarMenuSubItem>
+                  ))}
+                </SidebarMenuSub>
+              </CollapsibleContent>
+            </>
+          )}
+        </SidebarMenuItem>
+      </CollapsibleTrigger>
     </Collapsible>
   );
 }
