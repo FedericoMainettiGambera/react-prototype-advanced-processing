@@ -1,7 +1,8 @@
 import type { Subjectslog } from "@/api/types";
-import { atom, useAtomValue, useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 
-export const subjectsLogAtom = atom<Subjectslog>();
+export const subjectsLogAtom = atomWithStorage<Subjectslog | undefined>("subjects-log", undefined);
 
 export const useAuth = () => {
   const subjectsLog = useAtomValue(subjectsLogAtom);

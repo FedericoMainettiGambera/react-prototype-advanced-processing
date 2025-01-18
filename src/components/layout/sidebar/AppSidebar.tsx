@@ -9,6 +9,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { Link } from "@tanstack/react-router";
 import { Navigation } from "./Navigation";
 import { NavUser } from "./NavUser";
 
@@ -19,7 +20,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <div>
+              <Link to="/">
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg">
                   <img src="/images/logo.png" alt="Advanced Processing's logo" />
                 </div>
@@ -27,7 +28,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <span className="truncate font-semibold">Advanced Processing</span>
                   <span className="truncate text-xs">Enterprise</span>
                 </div>
-              </div>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

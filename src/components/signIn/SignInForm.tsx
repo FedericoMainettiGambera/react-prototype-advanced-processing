@@ -6,8 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
 import { z } from "zod";
 
 const formSchema = z.object({
@@ -38,7 +38,9 @@ export function SignInForm({ className, ...props }: React.ComponentPropsWithoutR
       },
       {
         onSuccess: () => {
-          navigate("/");
+          navigate({
+            to: "/"
+          })
         },
       }
     );

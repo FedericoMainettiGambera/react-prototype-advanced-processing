@@ -4,7 +4,6 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "../ui/sidebar";
 import { AppSidebar } from "./sidebar/AppSidebar";
 
 export default function AppWrapper({ children }: PropsWithChildren) {
-  console.log("rerender of AppWrapper")
   return (
     <SidebarProvider>
       <AppSidebar />

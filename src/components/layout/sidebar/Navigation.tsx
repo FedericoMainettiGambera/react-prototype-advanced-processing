@@ -34,18 +34,6 @@ const routeGroups: RouteGroup[] = [
       { label: "Devices", path: "/devices" },
     ],
   },
-  // {
-  //   label: "Servizi",
-  //   icon: SquareTerminal,
-  //   routes: [
-  //     { label: "Misure", path: "/services/measures" },
-  //     { label: "Dettagli Misure", path: "/services/measures-details/:id" },
-  //     { label: "Monitor Misure", path: "/services/measures-monitor" },
-  //     { label: "Luoghi", path: "/services/places" },
-  //     { label: "Test Dispositivi", path: "/services/devices-test" },
-  //     { label: "Accesso", path: "/services/access" },
-  //   ],
-  // },
 ] as const;
 
 export function Navigation() {

@@ -13,6 +13,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
+import { useSetAuth } from "@/stores/auth";
+import { useNavigate } from "@tanstack/react-router";
 
 export function NavUser({
   user,
@@ -25,6 +27,16 @@ export function NavUser({
 }) {
   const { isMobile } = useSidebar();
   const { setTheme } = useTheme();
+
+  const navigate = useNavigate();
+  const setAuth = useSetAuth();
+
+  const handleLogOut = () => {
+    setAuth(undefined);
+    navigate({
+      to: "/signin",
+    });
+  };
 
   return (
     <SidebarMenu>
@@ -75,7 +87,7 @@ export function NavUser({
               Sistema
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogOut}>
               <LogOut />
               Esci
             </DropdownMenuItem>
