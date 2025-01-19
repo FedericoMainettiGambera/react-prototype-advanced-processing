@@ -1,11 +1,8 @@
-import type { Subjectslog } from "@/api/types";
+import type { AuthContext } from "@/stores/auth";
 import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
 
-interface RouterContext {
-  subjectsLog: Subjectslog;
-  isAuthed: boolean;
-}
-
-export const Route = createRootRouteWithContext<RouterContext>()({
+export const Route = createRootRouteWithContext<{
+  auth: AuthContext;
+}>()({
   component: () => <Outlet />,
 });

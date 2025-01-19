@@ -12,6 +12,7 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
+import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 export type Route = {
@@ -75,9 +76,9 @@ export function RouteGroup({ group }: { group: RouteGroup }) {
                   {group.routes?.map(route => (
                     <SidebarMenuSubItem key={route.label}>
                       <SidebarMenuSubButton asChild>
-                        <a href={route.path}>
+                        <Link to={route.path}>
                           <span>{route.label}</span>
-                        </a>
+                        </Link>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                   ))}

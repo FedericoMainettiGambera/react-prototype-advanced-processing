@@ -1,15 +1,7 @@
-import { env } from "@/env/client";
-import { useSetAuth } from "@/stores/auth";
+import { useSetSubjectsLog } from "@/stores/auth";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import { axiosClient } from "../axios";
 import type { Subjectslog } from "../types";
-
-const axiosClient = axios.create({
-  baseURL: env.VITE_API_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
 
 type SignInCredentials = {
   email: string;
@@ -34,7 +26,7 @@ export const signIn = async (credentials: SignInCredentials): Promise<SignInResp
 };
 
 export const useSignInMutation = () => {
-  const setAuth = useSetAuth();
+  const setAuth = useSetSubjectsLog();
 
   const mutation = useMutation<SignInResponse, Error, SignInCredentials>({
     mutationFn: signIn,

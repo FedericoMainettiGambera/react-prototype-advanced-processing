@@ -14,6 +14,7 @@ import { Navigation } from "./Navigation";
 import { NavUser } from "./NavUser";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -37,13 +38,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <Navigation />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser
-          user={{
-            email: "test@test.it",
-            name: "Test test",
-            avatar: "/images/avatar.png",
-          }}
-        />
+        <NavUser />
       </SidebarFooter>
     </Sidebar>
   );

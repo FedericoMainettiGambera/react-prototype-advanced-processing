@@ -13,23 +13,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
-import { useSetAuth } from "@/stores/auth";
+import { useAuth, useSetSubjectsLog } from "@/stores/auth";
 import { useNavigate } from "@tanstack/react-router";
 
-export function NavUser({
-  user,
-}: {
-  user: {
-    name: string;
-    email: string;
-    avatar: string;
-  };
-}) {
+export function NavUser() {
   const { isMobile } = useSidebar();
   const { setTheme } = useTheme();
 
   const navigate = useNavigate();
-  const setAuth = useSetAuth();
+  const setAuth = useSetSubjectsLog();
 
   const handleLogOut = () => {
     setAuth(undefined);

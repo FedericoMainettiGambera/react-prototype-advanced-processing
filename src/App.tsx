@@ -8,8 +8,11 @@ import { useAuth } from "./stores/auth";
 const router = createRouter({
   routeTree,
   context: {
-    isAuthed: undefined!,
-    subjectsLog: undefined!,
+    auth: {
+      isLoaded: false,
+      isSignedIn: false,
+      subjectsLog: null,
+    },
   },
 });
 
@@ -27,7 +30,12 @@ export function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <RouterProvider router={router} context={auth} />
+        <RouterProvider
+          router={router}
+          context={{
+            auth,
+          }}
+        />
       </ThemeProvider>
     </QueryClientProvider>
   );
