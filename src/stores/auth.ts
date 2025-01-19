@@ -9,7 +9,6 @@ export const useAuth = () => {
 
   return {
     subjectsLog,
-    isLoaded: subjectsLog !== null,
     isSignedIn: Boolean(subjectsLog),
   };
 };

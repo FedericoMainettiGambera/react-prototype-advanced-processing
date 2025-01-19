@@ -38,9 +38,11 @@ export function SignInForm({ className, ...props }: React.ComponentPropsWithoutR
       },
       {
         onSuccess: () => {
-          navigate({
-            to: "/"
-          })
+          setTimeout(() => {
+            navigate({
+              to: "/",
+            });
+          }, 0);
         },
       }
     );

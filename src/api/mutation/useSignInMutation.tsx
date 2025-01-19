@@ -26,7 +26,7 @@ export const signIn = async (credentials: SignInCredentials): Promise<SignInResp
 };
 
 export const useSignInMutation = () => {
-  const setAuth = useSetSubjectsLog();
+  const setSubjectsLog = useSetSubjectsLog();
 
   const mutation = useMutation<SignInResponse, Error, SignInCredentials>({
     mutationFn: signIn,
@@ -38,7 +38,7 @@ export const useSignInMutation = () => {
         throw new Error(data.message || "An error occurred during sign-in");
       }
 
-      setAuth(data.subjectslog);
+      setSubjectsLog(data.subjectslog);
     },
   });
 

@@ -9,7 +9,6 @@ const router = createRouter({
   routeTree,
   context: {
     auth: {
-      isLoaded: false,
       isSignedIn: false,
       subjectsLog: null,
     },
@@ -29,7 +28,7 @@ export function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
         <RouterProvider
           router={router}
           context={{

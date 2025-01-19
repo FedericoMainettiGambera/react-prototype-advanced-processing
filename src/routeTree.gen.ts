@@ -16,7 +16,8 @@ import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
 import { Route as LayoutUsersImport } from './routes/_layout/users'
 import { Route as LayoutDevicesImport } from './routes/_layout/devices'
-import { Route as LayoutDevicesIdImport } from './routes/_layout/devices.$id'
+import { Route as LayoutUserIdImport } from './routes/_layout/user.$id'
+import { Route as LayoutDeviceIdImport } from './routes/_layout/device.$id'
 
 // Create/Update Routes
 
@@ -49,10 +50,16 @@ const LayoutDevicesRoute = LayoutDevicesImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
-const LayoutDevicesIdRoute = LayoutDevicesIdImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => LayoutDevicesRoute,
+const LayoutUserIdRoute = LayoutUserIdImport.update({
+  id: '/user/$id',
+  path: '/user/$id',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutDeviceIdRoute = LayoutDeviceIdImport.update({
+  id: '/device/$id',
+  path: '/device/$id',
+  getParentRoute: () => LayoutRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -94,40 +101,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutIndexImport
       parentRoute: typeof LayoutImport
     }
-    '/_layout/devices/$id': {
-      id: '/_layout/devices/$id'
-      path: '/$id'
-      fullPath: '/devices/$id'
-      preLoaderRoute: typeof LayoutDevicesIdImport
-      parentRoute: typeof LayoutDevicesImport
+    '/_layout/device/$id': {
+      id: '/_layout/device/$id'
+      path: '/device/$id'
+      fullPath: '/device/$id'
+      preLoaderRoute: typeof LayoutDeviceIdImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/user/$id': {
+      id: '/_layout/user/$id'
+      path: '/user/$id'
+      fullPath: '/user/$id'
+      preLoaderRoute: typeof LayoutUserIdImport
+      parentRoute: typeof LayoutImport
     }
   }
 }
 
 // Create and export the route tree
 
-interface LayoutDevicesRouteChildren {
-  LayoutDevicesIdRoute: typeof LayoutDevicesIdRoute
-}
-
-const LayoutDevicesRouteChildren: LayoutDevicesRouteChildren = {
-  LayoutDevicesIdRoute: LayoutDevicesIdRoute,
-}
-
-const LayoutDevicesRouteWithChildren = LayoutDevicesRoute._addFileChildren(
-  LayoutDevicesRouteChildren,
-)
-
 interface LayoutRouteChildren {
-  LayoutDevicesRoute: typeof LayoutDevicesRouteWithChildren
+  LayoutDevicesRoute: typeof LayoutDevicesRoute
   LayoutUsersRoute: typeof LayoutUsersRoute
   LayoutIndexRoute: typeof LayoutIndexRoute
+  LayoutDeviceIdRoute: typeof LayoutDeviceIdRoute
+  LayoutUserIdRoute: typeof LayoutUserIdRoute
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
-  LayoutDevicesRoute: LayoutDevicesRouteWithChildren,
+  LayoutDevicesRoute: LayoutDevicesRoute,
   LayoutUsersRoute: LayoutUsersRoute,
   LayoutIndexRoute: LayoutIndexRoute,
+  LayoutDeviceIdRoute: LayoutDeviceIdRoute,
+  LayoutUserIdRoute: LayoutUserIdRoute,
 }
 
 const LayoutRouteWithChildren =
@@ -136,35 +142,45 @@ const LayoutRouteWithChildren =
 export interface FileRoutesByFullPath {
   '': typeof LayoutRouteWithChildren
   '/signin': typeof SigninRoute
-  '/devices': typeof LayoutDevicesRouteWithChildren
+  '/devices': typeof LayoutDevicesRoute
   '/users': typeof LayoutUsersRoute
   '/': typeof LayoutIndexRoute
-  '/devices/$id': typeof LayoutDevicesIdRoute
+  '/device/$id': typeof LayoutDeviceIdRoute
+  '/user/$id': typeof LayoutUserIdRoute
 }
 
 export interface FileRoutesByTo {
   '/signin': typeof SigninRoute
-  '/devices': typeof LayoutDevicesRouteWithChildren
+  '/devices': typeof LayoutDevicesRoute
   '/users': typeof LayoutUsersRoute
   '/': typeof LayoutIndexRoute
-  '/devices/$id': typeof LayoutDevicesIdRoute
+  '/device/$id': typeof LayoutDeviceIdRoute
+  '/user/$id': typeof LayoutUserIdRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_layout': typeof LayoutRouteWithChildren
   '/signin': typeof SigninRoute
-  '/_layout/devices': typeof LayoutDevicesRouteWithChildren
+  '/_layout/devices': typeof LayoutDevicesRoute
   '/_layout/users': typeof LayoutUsersRoute
   '/_layout/': typeof LayoutIndexRoute
-  '/_layout/devices/$id': typeof LayoutDevicesIdRoute
+  '/_layout/device/$id': typeof LayoutDeviceIdRoute
+  '/_layout/user/$id': typeof LayoutUserIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/signin' | '/devices' | '/users' | '/' | '/devices/$id'
+  fullPaths:
+    | ''
+    | '/signin'
+    | '/devices'
+    | '/users'
+    | '/'
+    | '/device/$id'
+    | '/user/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/signin' | '/devices' | '/users' | '/' | '/devices/$id'
+  to: '/signin' | '/devices' | '/users' | '/' | '/device/$id' | '/user/$id'
   id:
     | '__root__'
     | '/_layout'
@@ -172,7 +188,8 @@ export interface FileRouteTypes {
     | '/_layout/devices'
     | '/_layout/users'
     | '/_layout/'
-    | '/_layout/devices/$id'
+    | '/_layout/device/$id'
+    | '/_layout/user/$id'
   fileRoutesById: FileRoutesById
 }
 
@@ -205,7 +222,9 @@ export const routeTree = rootRoute
       "children": [
         "/_layout/devices",
         "/_layout/users",
-        "/_layout/"
+        "/_layout/",
+        "/_layout/device/$id",
+        "/_layout/user/$id"
       ]
     },
     "/signin": {
@@ -213,10 +232,7 @@ export const routeTree = rootRoute
     },
     "/_layout/devices": {
       "filePath": "_layout/devices.tsx",
-      "parent": "/_layout",
-      "children": [
-        "/_layout/devices/$id"
-      ]
+      "parent": "/_layout"
     },
     "/_layout/users": {
       "filePath": "_layout/users.tsx",
@@ -226,9 +242,13 @@ export const routeTree = rootRoute
       "filePath": "_layout/index.tsx",
       "parent": "/_layout"
     },
-    "/_layout/devices/$id": {
-      "filePath": "_layout/devices.$id.tsx",
-      "parent": "/_layout/devices"
+    "/_layout/device/$id": {
+      "filePath": "_layout/device.$id.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/user/$id": {
+      "filePath": "_layout/user.$id.tsx",
+      "parent": "/_layout"
     }
   }
 }

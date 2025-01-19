@@ -1,7 +1,8 @@
 "use client";
 
-import { ChevronsUpDown, Laptop, LogOut, Moon, Sun } from "lucide-react";
+import { ChevronsUpDown, Laptop, LogOut, Moon, Sun, User } from "lucide-react";
 
+import { useAvatarQuery } from "@/api/query/useAvatarQuery";
 import { useTheme } from "@/components/theme-provider";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -21,10 +22,13 @@ export function NavUser() {
   const { setTheme } = useTheme();
 
   const navigate = useNavigate();
-  const setAuth = useSetSubjectsLog();
+  const setSubjectsLog = useSetSubjectsLog();
+
+  const auth = useAuth();
+  const avatarQuery = useAvatarQuery();
 
   const handleLogOut = () => {
-    setAuth(undefined);
+    setSubjectsLog(undefined);
     navigate({
       to: "/signin",
     });
@@ -37,12 +41,18 @@ export function NavUser() {
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton size="lg" className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarImage
+                  style={{
+                    objectFit: "cover",
+                  }}
+                  src={avatarQuery.data}
+                  alt={auth.subjectsLog?.fullName}
+                />
+                <AvatarFallback className="rounded-lg">{auth.subjectsLog && getInitials(auth.subjectsLog?.fullName)}</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{user.name}</span>
-                <span className="truncate text-xs">{user.email}</span>
+                <span className="truncate font-semibold capitalize">{auth.subjectsLog?.fullName.toLowerCase()}</span>
+                <span className="truncate text-xs">{auth.subjectsLog?.id}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -56,15 +66,39 @@ export function NavUser() {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarImage
+                    style={{
+                      objectFit: "cover",
+                    }}
+                    src={avatarQuery.data}
+                    alt={auth.subjectsLog?.fullName}
+                  />
+                  <AvatarFallback className="rounded-lg">{auth.subjectsLog && getInitials(auth.subjectsLog?.fullName)}</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">{user.name}</span>
-                  <span className="truncate text-xs">{user.email}</span>
+                  <span className="truncate font-semibold capitalize">{auth.subjectsLog?.fullName.toLowerCase()}</span>
+                  <span className="truncate text-xs">{auth.subjectsLog?.id}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              disabled={!auth.subjectsLog}
+              onClick={() => {
+                if (!auth.subjectsLog) {
+                  return;
+                }
+                navigate({
+                  to: "/user/$id",
+                  params: {
+                    id: auth.subjectsLog?.id,
+                  },
+                });
+              }}
+            >
+              <User className="h-[1.2rem] w-[1.2rem]" />
+              Profilo
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => setTheme("light")}>
               <Sun className="h-[1.2rem] w-[1.2rem]" />
@@ -88,4 +122,13 @@ export function NavUser() {
       </SidebarMenuItem>
     </SidebarMenu>
   );
+}
+
+function getInitials(fullName: string): string {
+  const words = fullName.trim().split(/\s+/); // Split the name by spaces and remove extra whitespace
+  if (words.length < 2) {
+    throw new Error("The full name must contain at least two words.");
+  }
+  const initials = words[0][0].toUpperCase() + words[1][0].toUpperCase();
+  return initials;
 }
