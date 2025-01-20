@@ -14,7 +14,7 @@ export default function ProfileData() {
     <div>
       <div className="flex flex-row items-center justify-between">
         <div className="px-4 sm:px-0 flex flex-col gap-1">
-          <h3 className="font-semibold">Informazioni del profilo</h3>
+          <h3 className="font-semibold text-xl">Informazioni del profilo</h3>
           <p className="max-w-2xl text-sm text-muted-foreground">Visualizza e modifica i dati del tuo profilo personale.</p>
         </div>
         <Button onClick={() => setIsOpen(true)}>

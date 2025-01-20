@@ -58,18 +58,18 @@ export default function InfoPage() {
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold text-gray-900 mb-10 text-center">Informazioni sull'applicazione</h1>
+        <h1 className="text-4xl font-bold mb-10 text-center">Informazioni sull'applicazione</h1>
         <div className="grid gap-8 md:grid-cols-2">
           {settingsAppInfo.map((item, index) => (
             <Card key={index} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
               <CardContent className="p-6">
                 <div className="flex items-center mb-4">
                   <div className="p-3 rounded-full bg-primary/10 mr-4">{item.icon}</div>
-                  <h2 className="text-2xl font-semibold text-gray-800">{item.title}</h2>
+                  <h2 className="text-2xl font-semibold ">{item.title}</h2>
                 </div>
                 <div className="space-y-2">
                   {item.texts.map((text, i) => (
-                    <p key={i} className="text-gray-600">
+                    <p key={i} className="">
                       {text}
                     </p>
                   ))}
