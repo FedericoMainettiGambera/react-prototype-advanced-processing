@@ -10,9 +10,7 @@ export default function EditProfileDialog({ isOpen, setIsOpen }: { isOpen: boole
           <DialogTitle>Modifica informazioni del profilo</DialogTitle>
           <DialogDescription>Modifica le informazioni del tuo profilo. Clicca salva quando hai finito.</DialogDescription>
         </DialogHeader>
-        <DialogContent>
           <EditProfileForm />
-        </DialogContent>
         <DialogFooter>
           <Button type="submit">Save changes</Button>
         </DialogFooter>
