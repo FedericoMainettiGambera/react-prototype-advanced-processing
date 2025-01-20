@@ -52,7 +52,7 @@ export function NavUser() {
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold capitalize">{auth.subjectsLog?.fullName.toLowerCase()}</span>
-                <span className="truncate text-xs">{auth.subjectsLog?.id}</span>
+                <span className="truncate text-xs">{auth.subjectsLog?.loginpayload.Email}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -77,7 +77,7 @@ export function NavUser() {
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold capitalize">{auth.subjectsLog?.fullName.toLowerCase()}</span>
-                  <span className="truncate text-xs">{auth.subjectsLog?.id}</span>
+                  <span className="truncate text-xs">{auth.subjectsLog?.loginpayload.Email}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
@@ -89,10 +89,7 @@ export function NavUser() {
                   return;
                 }
                 navigate({
-                  to: "/user/$id",
-                  params: {
-                    id: auth.subjectsLog?.id,
-                  },
+                  to: "/profile",
                 });
               }}
             >

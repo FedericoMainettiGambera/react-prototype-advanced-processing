@@ -11,8 +11,6 @@ const fetchAvatar = async (subjectsLogId: string) => {
 
   const response = await axiosClient.get(`Subjectslog/ImageBase64?id=${subjectsLogId}`);
 
-  console.log(JSON.stringify(response, null, 2));
-
   return response.data;
 };
 

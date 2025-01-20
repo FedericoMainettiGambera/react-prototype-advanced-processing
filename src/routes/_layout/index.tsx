@@ -1,7 +1,7 @@
 import { useAppConfigQuery } from "@/api/query/useAppConfigQuery";
-import DeviceCard from "@/components/cards/DeviceCard";
-import MeasureCard from "@/components/cards/MeasureCard";
-import ServiceCard from "@/components/cards/ServiceCard";
+import DeviceCard from "@/components/home/DeviceCard";
+import MeasureCard from "@/components/home/MeasureCard";
+import ServiceCard from "@/components/home/ServiceCard";
 import { Separator } from "@/components/ui/separator";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -18,7 +18,7 @@ function Page() {
       {appConfigQuery.isError && <div>Errore: {appConfigQuery.error.message}</div>}
       {appConfigQuery.isSuccess && (
         <div className="flex flex-col gap-4">
-          <div className="font-semibold">Servizi</div>
+          <div className="font-semibold text-xl">Servizi</div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {appConfigQuery.data.services
               .filter(service => service.Config.Action === "view")

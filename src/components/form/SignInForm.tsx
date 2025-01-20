@@ -107,9 +107,6 @@ export function SignInForm({ className, ...props }: React.ComponentPropsWithoutR
           </Form>
         </CardContent>
       </Card>
-      <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  ">
-        Cliccando su accedi, accetti i nostri <a href="#">Termini di Servizio</a> e la <a href="#">Politica sulla Privacy</a>.
-      </div>
     </div>
   );
 }

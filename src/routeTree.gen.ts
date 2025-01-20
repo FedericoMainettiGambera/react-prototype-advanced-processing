@@ -14,10 +14,8 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as SigninImport } from './routes/signin'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
-import { Route as LayoutUsersImport } from './routes/_layout/users'
-import { Route as LayoutDevicesImport } from './routes/_layout/devices'
-import { Route as LayoutUserIdImport } from './routes/_layout/user.$id'
-import { Route as LayoutDeviceIdImport } from './routes/_layout/device.$id'
+import { Route as LayoutProfileImport } from './routes/_layout/profile'
+import { Route as LayoutGeolocationImport } from './routes/_layout/geolocation'
 
 // Create/Update Routes
 
@@ -38,27 +36,15 @@ const LayoutIndexRoute = LayoutIndexImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
-const LayoutUsersRoute = LayoutUsersImport.update({
-  id: '/users',
-  path: '/users',
+const LayoutProfileRoute = LayoutProfileImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => LayoutRoute,
 } as any)
 
-const LayoutDevicesRoute = LayoutDevicesImport.update({
-  id: '/devices',
-  path: '/devices',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
-const LayoutUserIdRoute = LayoutUserIdImport.update({
-  id: '/user/$id',
-  path: '/user/$id',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
-const LayoutDeviceIdRoute = LayoutDeviceIdImport.update({
-  id: '/device/$id',
-  path: '/device/$id',
+const LayoutGeolocationRoute = LayoutGeolocationImport.update({
+  id: '/geolocation',
+  path: '/geolocation',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -80,18 +66,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SigninImport
       parentRoute: typeof rootRoute
     }
-    '/_layout/devices': {
-      id: '/_layout/devices'
-      path: '/devices'
-      fullPath: '/devices'
-      preLoaderRoute: typeof LayoutDevicesImport
+    '/_layout/geolocation': {
+      id: '/_layout/geolocation'
+      path: '/geolocation'
+      fullPath: '/geolocation'
+      preLoaderRoute: typeof LayoutGeolocationImport
       parentRoute: typeof LayoutImport
     }
-    '/_layout/users': {
-      id: '/_layout/users'
-      path: '/users'
-      fullPath: '/users'
-      preLoaderRoute: typeof LayoutUsersImport
+    '/_layout/profile': {
+      id: '/_layout/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof LayoutProfileImport
       parentRoute: typeof LayoutImport
     }
     '/_layout/': {
@@ -101,39 +87,21 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutIndexImport
       parentRoute: typeof LayoutImport
     }
-    '/_layout/device/$id': {
-      id: '/_layout/device/$id'
-      path: '/device/$id'
-      fullPath: '/device/$id'
-      preLoaderRoute: typeof LayoutDeviceIdImport
-      parentRoute: typeof LayoutImport
-    }
-    '/_layout/user/$id': {
-      id: '/_layout/user/$id'
-      path: '/user/$id'
-      fullPath: '/user/$id'
-      preLoaderRoute: typeof LayoutUserIdImport
-      parentRoute: typeof LayoutImport
-    }
   }
 }
 
 // Create and export the route tree
 
 interface LayoutRouteChildren {
-  LayoutDevicesRoute: typeof LayoutDevicesRoute
-  LayoutUsersRoute: typeof LayoutUsersRoute
+  LayoutGeolocationRoute: typeof LayoutGeolocationRoute
+  LayoutProfileRoute: typeof LayoutProfileRoute
   LayoutIndexRoute: typeof LayoutIndexRoute
-  LayoutDeviceIdRoute: typeof LayoutDeviceIdRoute
-  LayoutUserIdRoute: typeof LayoutUserIdRoute
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
-  LayoutDevicesRoute: LayoutDevicesRoute,
-  LayoutUsersRoute: LayoutUsersRoute,
+  LayoutGeolocationRoute: LayoutGeolocationRoute,
+  LayoutProfileRoute: LayoutProfileRoute,
   LayoutIndexRoute: LayoutIndexRoute,
-  LayoutDeviceIdRoute: LayoutDeviceIdRoute,
-  LayoutUserIdRoute: LayoutUserIdRoute,
 }
 
 const LayoutRouteWithChildren =
@@ -142,54 +110,39 @@ const LayoutRouteWithChildren =
 export interface FileRoutesByFullPath {
   '': typeof LayoutRouteWithChildren
   '/signin': typeof SigninRoute
-  '/devices': typeof LayoutDevicesRoute
-  '/users': typeof LayoutUsersRoute
+  '/geolocation': typeof LayoutGeolocationRoute
+  '/profile': typeof LayoutProfileRoute
   '/': typeof LayoutIndexRoute
-  '/device/$id': typeof LayoutDeviceIdRoute
-  '/user/$id': typeof LayoutUserIdRoute
 }
 
 export interface FileRoutesByTo {
   '/signin': typeof SigninRoute
-  '/devices': typeof LayoutDevicesRoute
-  '/users': typeof LayoutUsersRoute
+  '/geolocation': typeof LayoutGeolocationRoute
+  '/profile': typeof LayoutProfileRoute
   '/': typeof LayoutIndexRoute
-  '/device/$id': typeof LayoutDeviceIdRoute
-  '/user/$id': typeof LayoutUserIdRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_layout': typeof LayoutRouteWithChildren
   '/signin': typeof SigninRoute
-  '/_layout/devices': typeof LayoutDevicesRoute
-  '/_layout/users': typeof LayoutUsersRoute
+  '/_layout/geolocation': typeof LayoutGeolocationRoute
+  '/_layout/profile': typeof LayoutProfileRoute
   '/_layout/': typeof LayoutIndexRoute
-  '/_layout/device/$id': typeof LayoutDeviceIdRoute
-  '/_layout/user/$id': typeof LayoutUserIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | ''
-    | '/signin'
-    | '/devices'
-    | '/users'
-    | '/'
-    | '/device/$id'
-    | '/user/$id'
+  fullPaths: '' | '/signin' | '/geolocation' | '/profile' | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/signin' | '/devices' | '/users' | '/' | '/device/$id' | '/user/$id'
+  to: '/signin' | '/geolocation' | '/profile' | '/'
   id:
     | '__root__'
     | '/_layout'
     | '/signin'
-    | '/_layout/devices'
-    | '/_layout/users'
+    | '/_layout/geolocation'
+    | '/_layout/profile'
     | '/_layout/'
-    | '/_layout/device/$id'
-    | '/_layout/user/$id'
   fileRoutesById: FileRoutesById
 }
 
@@ -220,34 +173,24 @@ export const routeTree = rootRoute
     "/_layout": {
       "filePath": "_layout.tsx",
       "children": [
-        "/_layout/devices",
-        "/_layout/users",
-        "/_layout/",
-        "/_layout/device/$id",
-        "/_layout/user/$id"
+        "/_layout/geolocation",
+        "/_layout/profile",
+        "/_layout/"
       ]
     },
     "/signin": {
       "filePath": "signin.tsx"
     },
-    "/_layout/devices": {
-      "filePath": "_layout/devices.tsx",
+    "/_layout/geolocation": {
+      "filePath": "_layout/geolocation.tsx",
       "parent": "/_layout"
     },
-    "/_layout/users": {
-      "filePath": "_layout/users.tsx",
+    "/_layout/profile": {
+      "filePath": "_layout/profile.tsx",
       "parent": "/_layout"
     },
     "/_layout/": {
       "filePath": "_layout/index.tsx",
-      "parent": "/_layout"
-    },
-    "/_layout/device/$id": {
-      "filePath": "_layout/device.$id.tsx",
-      "parent": "/_layout"
-    },
-    "/_layout/user/$id": {
-      "filePath": "_layout/user.$id.tsx",
       "parent": "/_layout"
     }
   }

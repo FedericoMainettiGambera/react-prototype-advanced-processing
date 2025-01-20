@@ -12,11 +12,11 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
-import { Link } from "@tanstack/react-router";
+import { Link, type LinkProps } from "@tanstack/react-router";
 import { useState } from "react";
 
 export type Route = {
-  path: string;
+  path: LinkProps["to"];
   label: string;
 };
 
@@ -30,10 +30,7 @@ const routeGroups: RouteGroup[] = [
   {
     label: "Funzionalità",
     icon: Users,
-    routes: [
-      { label: "Users", path: "/users" },
-      { label: "Devices", path: "/devices" },
-    ],
+    routes: [{ label: "Geolocalizzazione", path: "/geolocation" }],
   },
 ] as const;
 
