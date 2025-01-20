@@ -16,6 +16,7 @@ import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
 import { Route as LayoutProfileImport } from './routes/_layout/profile'
 import { Route as LayoutGeolocationImport } from './routes/_layout/geolocation'
+import { Route as LayoutCameraImport } from './routes/_layout/camera'
 
 // Create/Update Routes
 
@@ -48,6 +49,12 @@ const LayoutGeolocationRoute = LayoutGeolocationImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
+const LayoutCameraRoute = LayoutCameraImport.update({
+  id: '/camera',
+  path: '/camera',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -65,6 +72,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/signin'
       preLoaderRoute: typeof SigninImport
       parentRoute: typeof rootRoute
+    }
+    '/_layout/camera': {
+      id: '/_layout/camera'
+      path: '/camera'
+      fullPath: '/camera'
+      preLoaderRoute: typeof LayoutCameraImport
+      parentRoute: typeof LayoutImport
     }
     '/_layout/geolocation': {
       id: '/_layout/geolocation'
@@ -93,12 +107,14 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface LayoutRouteChildren {
+  LayoutCameraRoute: typeof LayoutCameraRoute
   LayoutGeolocationRoute: typeof LayoutGeolocationRoute
   LayoutProfileRoute: typeof LayoutProfileRoute
   LayoutIndexRoute: typeof LayoutIndexRoute
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
+  LayoutCameraRoute: LayoutCameraRoute,
   LayoutGeolocationRoute: LayoutGeolocationRoute,
   LayoutProfileRoute: LayoutProfileRoute,
   LayoutIndexRoute: LayoutIndexRoute,
@@ -110,6 +126,7 @@ const LayoutRouteWithChildren =
 export interface FileRoutesByFullPath {
   '': typeof LayoutRouteWithChildren
   '/signin': typeof SigninRoute
+  '/camera': typeof LayoutCameraRoute
   '/geolocation': typeof LayoutGeolocationRoute
   '/profile': typeof LayoutProfileRoute
   '/': typeof LayoutIndexRoute
@@ -117,6 +134,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/signin': typeof SigninRoute
+  '/camera': typeof LayoutCameraRoute
   '/geolocation': typeof LayoutGeolocationRoute
   '/profile': typeof LayoutProfileRoute
   '/': typeof LayoutIndexRoute
@@ -126,6 +144,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_layout': typeof LayoutRouteWithChildren
   '/signin': typeof SigninRoute
+  '/_layout/camera': typeof LayoutCameraRoute
   '/_layout/geolocation': typeof LayoutGeolocationRoute
   '/_layout/profile': typeof LayoutProfileRoute
   '/_layout/': typeof LayoutIndexRoute
@@ -133,13 +152,14 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/signin' | '/geolocation' | '/profile' | '/'
+  fullPaths: '' | '/signin' | '/camera' | '/geolocation' | '/profile' | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/signin' | '/geolocation' | '/profile' | '/'
+  to: '/signin' | '/camera' | '/geolocation' | '/profile' | '/'
   id:
     | '__root__'
     | '/_layout'
     | '/signin'
+    | '/_layout/camera'
     | '/_layout/geolocation'
     | '/_layout/profile'
     | '/_layout/'
@@ -173,6 +193,7 @@ export const routeTree = rootRoute
     "/_layout": {
       "filePath": "_layout.tsx",
       "children": [
+        "/_layout/camera",
         "/_layout/geolocation",
         "/_layout/profile",
         "/_layout/"
@@ -180,6 +201,10 @@ export const routeTree = rootRoute
     },
     "/signin": {
       "filePath": "signin.tsx"
+    },
+    "/_layout/camera": {
+      "filePath": "_layout/camera.tsx",
+      "parent": "/_layout"
     },
     "/_layout/geolocation": {
       "filePath": "_layout/geolocation.tsx",

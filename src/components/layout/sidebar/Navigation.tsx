@@ -30,7 +30,9 @@ const routeGroups: RouteGroup[] = [
   {
     label: "Funzionalità",
     icon: Users,
-    routes: [{ label: "Geolocalizzazione", path: "/geolocation" }],
+    routes: [{ label: "Geolocalizzazione", path: "/geolocation" },
+      { label: "Fotocamera", path: "/camera" }
+    ],
   },
 ] as const;
 

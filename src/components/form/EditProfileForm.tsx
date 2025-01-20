@@ -1,7 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
-import { useAuth } from "@/stores/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -18,7 +17,7 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 export function EditProfileForm({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
-  const auth = useAuth();
+  // const auth = useAuth();
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),

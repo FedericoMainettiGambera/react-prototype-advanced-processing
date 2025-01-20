@@ -1,4 +1,4 @@
-import Geolocation from "@/components/geolocation/Geolocation";
+import GeolocationPage from "@/components/geolocation/Geolocation";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_layout/geolocation")({
@@ -7,8 +7,6 @@ export const Route = createFileRoute("/_layout/geolocation")({
 
 function RouteComponent() {
   return (
-    <div>
-      <Geolocation />
-    </div>
+      <GeolocationPage />
   );
 }
