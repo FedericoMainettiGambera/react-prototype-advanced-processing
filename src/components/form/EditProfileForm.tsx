@@ -28,7 +28,7 @@ export function EditProfileForm({ className, ...props }: React.ComponentPropsWit
 
   // const mutation = useEditProfileMutation();
 
-  function onSubmit(values: FormData) {
+  function onSubmit(/*values: FormData*/) {
     // mutation.mutate(
     //   {
     //     //...
