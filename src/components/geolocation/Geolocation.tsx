@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui
 
 export default function GeolocationPage() {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 max-w-[600px]">
       <div className="font-semibold text-xl">Geolocalizzazione</div>
       <GeolocationPermission />
       <GeolocationFeature />

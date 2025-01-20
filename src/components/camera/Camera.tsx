@@ -1,9 +1,12 @@
 import { usePermission } from "@/hooks/usePermissions";
+import { Camera, X } from "lucide-react";
+import { useRef, useState } from "react";
+import { Button } from "../ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
 
 export default function CameraPage() {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 max-w-[600px]">
       <div className="font-semibold text-xl">Camera</div>
       <CameraPermission />
       <CameraFeature />
@@ -34,19 +37,84 @@ const CameraPermission = () => {
 };
 
 const CameraFeature = () => {
-  const permission = usePermission("camera");
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  if (permission.isLoading) {
-    return null;
-  }
+  const [mediaStream, setMediaStream] = useState<MediaStream | null>(null);
+  const [capturedImage, setCapturedImage] = useState<string | null>(null);
 
-  if (permission.state !== "granted") {
-    return (
-      <div className="text-muted-foreground">
-        Non è possibile usare la funzionalità della fotocamera perchè i permessi non sono stati garantiti.
-      </div>
-    );
-  }
+  const startWebcam = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+      });
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+      }
+      setMediaStream(stream);
+    } catch (error) {
+      console.error("Error accessing webcam", error);
+    }
+  };
 
-  return <div>TODo</div>;
+  const stopWebcam = () => {
+    if (mediaStream) {
+      mediaStream.getTracks().forEach(track => {
+        track.stop();
+      });
+      setMediaStream(null);
+    }
+  };
+
+  const captureImage = () => {
+    if (videoRef.current && canvasRef.current) {
+      const video = videoRef.current;
+      const canvas = canvasRef.current;
+      const context = canvas.getContext("2d");
+
+      if (context && video.videoWidth && video.videoHeight) {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        const imageDataUrl = canvas.toDataURL("image/jpeg");
+
+        setCapturedImage(imageDataUrl);
+
+        stopWebcam();
+      }
+    }
+  };
+
+  const resetState = () => {
+    stopWebcam();
+    setCapturedImage(null);
+  };
+
+  return (
+    <div className="flex flex-col gap-6">
+      {capturedImage ? (
+        <>
+          <img src={capturedImage} alt="Immagine scattata" className="rounded-lg" />
+          <Button onClick={resetState}>
+            <X />
+            Riprova
+          </Button>
+        </>
+      ) : (
+        <>
+          {!videoRef.current && <Button onClick={startWebcam}>Apri webcam</Button>}
+          <video ref={videoRef} autoPlay muted className="rounded-lg" />
+          <canvas ref={canvasRef} className="hidden" />
+          {videoRef.current && (
+            <Button onClick={captureImage}>
+              <Camera />
+              Scatta
+            </Button>
+          )}
+        </>
+      )}
+    </div>
+  );
 };
