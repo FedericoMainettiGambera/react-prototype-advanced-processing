@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronsUpDown, Laptop, LogOut, Moon, Sun, User } from "lucide-react";
+import { ChevronsUpDown, Info, Laptop, LogOut, Moon, Sun, User } from "lucide-react";
 
 import { useAvatarQuery } from "@/api/query/useAvatarQuery";
 import { useTheme } from "@/components/theme-provider";
@@ -108,6 +108,13 @@ export function NavUser() {
             <DropdownMenuItem onClick={() => setTheme("system")}>
               <Laptop className="h-[1.2rem] w-[1.2rem]" />
               Sistema
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => navigate({
+              to: "/info"
+            })}>
+              <Info className="h-[1.2rem] w-[1.2rem]" />
+              Informazioni sull'app
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleLogOut}>

@@ -16,6 +16,7 @@ import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
 import { Route as LayoutProfileImport } from './routes/_layout/profile'
 import { Route as LayoutMeasuresImport } from './routes/_layout/measures'
+import { Route as LayoutInfoImport } from './routes/_layout/info'
 import { Route as LayoutGeolocationImport } from './routes/_layout/geolocation'
 import { Route as LayoutDevicesImport } from './routes/_layout/devices'
 import { Route as LayoutCameraImport } from './routes/_layout/camera'
@@ -48,6 +49,12 @@ const LayoutProfileRoute = LayoutProfileImport.update({
 const LayoutMeasuresRoute = LayoutMeasuresImport.update({
   id: '/measures',
   path: '/measures',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutInfoRoute = LayoutInfoImport.update({
+  id: '/info',
+  path: '/info',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -108,6 +115,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutGeolocationImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/info': {
+      id: '/_layout/info'
+      path: '/info'
+      fullPath: '/info'
+      preLoaderRoute: typeof LayoutInfoImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/measures': {
       id: '/_layout/measures'
       path: '/measures'
@@ -138,6 +152,7 @@ interface LayoutRouteChildren {
   LayoutCameraRoute: typeof LayoutCameraRoute
   LayoutDevicesRoute: typeof LayoutDevicesRoute
   LayoutGeolocationRoute: typeof LayoutGeolocationRoute
+  LayoutInfoRoute: typeof LayoutInfoRoute
   LayoutMeasuresRoute: typeof LayoutMeasuresRoute
   LayoutProfileRoute: typeof LayoutProfileRoute
   LayoutIndexRoute: typeof LayoutIndexRoute
@@ -147,6 +162,7 @@ const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutCameraRoute: LayoutCameraRoute,
   LayoutDevicesRoute: LayoutDevicesRoute,
   LayoutGeolocationRoute: LayoutGeolocationRoute,
+  LayoutInfoRoute: LayoutInfoRoute,
   LayoutMeasuresRoute: LayoutMeasuresRoute,
   LayoutProfileRoute: LayoutProfileRoute,
   LayoutIndexRoute: LayoutIndexRoute,
@@ -161,6 +177,7 @@ export interface FileRoutesByFullPath {
   '/camera': typeof LayoutCameraRoute
   '/devices': typeof LayoutDevicesRoute
   '/geolocation': typeof LayoutGeolocationRoute
+  '/info': typeof LayoutInfoRoute
   '/measures': typeof LayoutMeasuresRoute
   '/profile': typeof LayoutProfileRoute
   '/': typeof LayoutIndexRoute
@@ -171,6 +188,7 @@ export interface FileRoutesByTo {
   '/camera': typeof LayoutCameraRoute
   '/devices': typeof LayoutDevicesRoute
   '/geolocation': typeof LayoutGeolocationRoute
+  '/info': typeof LayoutInfoRoute
   '/measures': typeof LayoutMeasuresRoute
   '/profile': typeof LayoutProfileRoute
   '/': typeof LayoutIndexRoute
@@ -183,6 +201,7 @@ export interface FileRoutesById {
   '/_layout/camera': typeof LayoutCameraRoute
   '/_layout/devices': typeof LayoutDevicesRoute
   '/_layout/geolocation': typeof LayoutGeolocationRoute
+  '/_layout/info': typeof LayoutInfoRoute
   '/_layout/measures': typeof LayoutMeasuresRoute
   '/_layout/profile': typeof LayoutProfileRoute
   '/_layout/': typeof LayoutIndexRoute
@@ -196,6 +215,7 @@ export interface FileRouteTypes {
     | '/camera'
     | '/devices'
     | '/geolocation'
+    | '/info'
     | '/measures'
     | '/profile'
     | '/'
@@ -205,6 +225,7 @@ export interface FileRouteTypes {
     | '/camera'
     | '/devices'
     | '/geolocation'
+    | '/info'
     | '/measures'
     | '/profile'
     | '/'
@@ -215,6 +236,7 @@ export interface FileRouteTypes {
     | '/_layout/camera'
     | '/_layout/devices'
     | '/_layout/geolocation'
+    | '/_layout/info'
     | '/_layout/measures'
     | '/_layout/profile'
     | '/_layout/'
@@ -251,6 +273,7 @@ export const routeTree = rootRoute
         "/_layout/camera",
         "/_layout/devices",
         "/_layout/geolocation",
+        "/_layout/info",
         "/_layout/measures",
         "/_layout/profile",
         "/_layout/"
@@ -269,6 +292,10 @@ export const routeTree = rootRoute
     },
     "/_layout/geolocation": {
       "filePath": "_layout/geolocation.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/info": {
+      "filePath": "_layout/info.tsx",
       "parent": "/_layout"
     },
     "/_layout/measures": {
