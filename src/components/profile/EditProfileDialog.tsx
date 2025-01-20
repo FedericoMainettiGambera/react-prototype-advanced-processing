@@ -5,14 +5,17 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 export default function EditProfileDialog({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (value: boolean) => void }) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Modifica informazioni del profilo</DialogTitle>
           <DialogDescription>Modifica le informazioni del tuo profilo. Clicca salva quando hai finito.</DialogDescription>
         </DialogHeader>
           <EditProfileForm />
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
+        <DialogFooter className="gap-y-2">
+          <Button type="button" variant="outline" onClick={() => {
+            setIsOpen(false);
+          }}>Annulla</Button>
+          <Button type="submit">Salva modifiche</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

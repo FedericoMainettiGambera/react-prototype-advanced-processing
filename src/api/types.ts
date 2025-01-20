@@ -3,7 +3,7 @@ export interface Subjectslog {
   id2: string
   name1: string
   name2: string
-  gender: string
+  gender: "M" | "F"
   birthdate: string
   loginpayload: Loginpayload
   birthpayload: Birthpayload
@@ -174,8 +174,6 @@ export interface Config3 {
   xsrfHeaderName: string
   maxContentLength: number
   maxBodyLength: number
-  env: Env
-  headers: Headers2
   baseURL: string
   method: string
   url: string
@@ -187,11 +185,20 @@ export interface Transitional {
   clarifyTimeoutError: boolean
 }
 
-export interface Env {}
-
-export interface Headers2 {
-  Accept: string
-  "Content-Type": string
+export interface Privacy {
+  [key: string]: PrivacyItem;
 }
 
-export interface Request {}
+export interface PrivacyItem {
+  key: string
+  label: string
+  value: boolean
+  mandatory: boolean
+  links: Link[]
+}
+
+export interface Link {
+  url: string
+  fileName: any
+  label: string
+}
