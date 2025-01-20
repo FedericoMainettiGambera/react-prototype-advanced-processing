@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "//": "the --port 300 is necessary for CORS problems with the backend", 
   "scripts": {
     "dev": "vite --port 3000",
     "build": "tsc -b && vite build",
