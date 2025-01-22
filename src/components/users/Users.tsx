@@ -35,27 +35,6 @@ export default function Users() {
         }}
         allowFiltering={true}
 
-        filterSettings={{
-          columns: [
-            {
-              field: "name1",
-              value: tableState.filters.name1 || "",
-            },
-            {
-              field: "name2",
-              value: tableState.filters.name2 || "",
-            },
-            {
-              field: "gender",
-              value: tableState.filters.gender || "",
-            },
-            {
-              field: "birthdate",
-              value: tableState.filters.birthdate || "",
-            },
-          ],
-        }}
-        
         actionComplete={args => {
           const requestType: Action = args.requestType;
 
