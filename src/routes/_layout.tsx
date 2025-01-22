@@ -4,14 +4,14 @@ import { Separator } from "@radix-ui/react-separator";
 import { Outlet, createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_layout")({
-  beforeLoad: ({ context }) => {
-    // commented out so you can navigate pages even if login api doesn't work (due to CORS problems)
-    // if (!context.auth.isSignedIn) {
-    //   throw redirect({
-    //     to: "/signin",
-    //   });
-    // }
-  },
+  // commented out so you can navigate pages even if login api doesn't work (due to CORS problems)
+  // beforeLoad: ({ context }) => {
+  //   if (!context.auth.isSignedIn) {
+  //     throw redirect({
+  //       to: "/signin",
+  //     });
+  //   }
+  // },
   component: LayoutComponent,
 });
 
