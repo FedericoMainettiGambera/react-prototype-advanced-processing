@@ -14,14 +14,13 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as SigninImport } from './routes/signin'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
+import { Route as LayoutUsersImport } from './routes/_layout/users'
 import { Route as LayoutProfileImport } from './routes/_layout/profile'
 import { Route as LayoutMeasuresImport } from './routes/_layout/measures'
 import { Route as LayoutInfoImport } from './routes/_layout/info'
 import { Route as LayoutGeolocationImport } from './routes/_layout/geolocation'
 import { Route as LayoutDevicesImport } from './routes/_layout/devices'
 import { Route as LayoutCameraImport } from './routes/_layout/camera'
-import { Route as LayoutVideocallUsersImport } from './routes/_layout/videocall/users'
-import { Route as LayoutVideocallRoomsImport } from './routes/_layout/videocall/rooms'
 
 // Create/Update Routes
 
@@ -39,6 +38,12 @@ const LayoutRoute = LayoutImport.update({
 const LayoutIndexRoute = LayoutIndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutUsersRoute = LayoutUsersImport.update({
+  id: '/users',
+  path: '/users',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -75,18 +80,6 @@ const LayoutDevicesRoute = LayoutDevicesImport.update({
 const LayoutCameraRoute = LayoutCameraImport.update({
   id: '/camera',
   path: '/camera',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
-const LayoutVideocallUsersRoute = LayoutVideocallUsersImport.update({
-  id: '/videocall/users',
-  path: '/videocall/users',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
-const LayoutVideocallRoomsRoute = LayoutVideocallRoomsImport.update({
-  id: '/videocall/rooms',
-  path: '/videocall/rooms',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -150,25 +143,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutProfileImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/users': {
+      id: '/_layout/users'
+      path: '/users'
+      fullPath: '/users'
+      preLoaderRoute: typeof LayoutUsersImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/': {
       id: '/_layout/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof LayoutIndexImport
-      parentRoute: typeof LayoutImport
-    }
-    '/_layout/videocall/rooms': {
-      id: '/_layout/videocall/rooms'
-      path: '/videocall/rooms'
-      fullPath: '/videocall/rooms'
-      preLoaderRoute: typeof LayoutVideocallRoomsImport
-      parentRoute: typeof LayoutImport
-    }
-    '/_layout/videocall/users': {
-      id: '/_layout/videocall/users'
-      path: '/videocall/users'
-      fullPath: '/videocall/users'
-      preLoaderRoute: typeof LayoutVideocallUsersImport
       parentRoute: typeof LayoutImport
     }
   }
@@ -183,9 +169,8 @@ interface LayoutRouteChildren {
   LayoutInfoRoute: typeof LayoutInfoRoute
   LayoutMeasuresRoute: typeof LayoutMeasuresRoute
   LayoutProfileRoute: typeof LayoutProfileRoute
+  LayoutUsersRoute: typeof LayoutUsersRoute
   LayoutIndexRoute: typeof LayoutIndexRoute
-  LayoutVideocallRoomsRoute: typeof LayoutVideocallRoomsRoute
-  LayoutVideocallUsersRoute: typeof LayoutVideocallUsersRoute
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
@@ -195,9 +180,8 @@ const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutInfoRoute: LayoutInfoRoute,
   LayoutMeasuresRoute: LayoutMeasuresRoute,
   LayoutProfileRoute: LayoutProfileRoute,
+  LayoutUsersRoute: LayoutUsersRoute,
   LayoutIndexRoute: LayoutIndexRoute,
-  LayoutVideocallRoomsRoute: LayoutVideocallRoomsRoute,
-  LayoutVideocallUsersRoute: LayoutVideocallUsersRoute,
 }
 
 const LayoutRouteWithChildren =
@@ -212,9 +196,8 @@ export interface FileRoutesByFullPath {
   '/info': typeof LayoutInfoRoute
   '/measures': typeof LayoutMeasuresRoute
   '/profile': typeof LayoutProfileRoute
+  '/users': typeof LayoutUsersRoute
   '/': typeof LayoutIndexRoute
-  '/videocall/rooms': typeof LayoutVideocallRoomsRoute
-  '/videocall/users': typeof LayoutVideocallUsersRoute
 }
 
 export interface FileRoutesByTo {
@@ -225,9 +208,8 @@ export interface FileRoutesByTo {
   '/info': typeof LayoutInfoRoute
   '/measures': typeof LayoutMeasuresRoute
   '/profile': typeof LayoutProfileRoute
+  '/users': typeof LayoutUsersRoute
   '/': typeof LayoutIndexRoute
-  '/videocall/rooms': typeof LayoutVideocallRoomsRoute
-  '/videocall/users': typeof LayoutVideocallUsersRoute
 }
 
 export interface FileRoutesById {
@@ -240,9 +222,8 @@ export interface FileRoutesById {
   '/_layout/info': typeof LayoutInfoRoute
   '/_layout/measures': typeof LayoutMeasuresRoute
   '/_layout/profile': typeof LayoutProfileRoute
+  '/_layout/users': typeof LayoutUsersRoute
   '/_layout/': typeof LayoutIndexRoute
-  '/_layout/videocall/rooms': typeof LayoutVideocallRoomsRoute
-  '/_layout/videocall/users': typeof LayoutVideocallUsersRoute
 }
 
 export interface FileRouteTypes {
@@ -256,9 +237,8 @@ export interface FileRouteTypes {
     | '/info'
     | '/measures'
     | '/profile'
+    | '/users'
     | '/'
-    | '/videocall/rooms'
-    | '/videocall/users'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/signin'
@@ -268,9 +248,8 @@ export interface FileRouteTypes {
     | '/info'
     | '/measures'
     | '/profile'
+    | '/users'
     | '/'
-    | '/videocall/rooms'
-    | '/videocall/users'
   id:
     | '__root__'
     | '/_layout'
@@ -281,9 +260,8 @@ export interface FileRouteTypes {
     | '/_layout/info'
     | '/_layout/measures'
     | '/_layout/profile'
+    | '/_layout/users'
     | '/_layout/'
-    | '/_layout/videocall/rooms'
-    | '/_layout/videocall/users'
   fileRoutesById: FileRoutesById
 }
 
@@ -320,9 +298,8 @@ export const routeTree = rootRoute
         "/_layout/info",
         "/_layout/measures",
         "/_layout/profile",
-        "/_layout/",
-        "/_layout/videocall/rooms",
-        "/_layout/videocall/users"
+        "/_layout/users",
+        "/_layout/"
       ]
     },
     "/signin": {
@@ -352,16 +329,12 @@ export const routeTree = rootRoute
       "filePath": "_layout/profile.tsx",
       "parent": "/_layout"
     },
+    "/_layout/users": {
+      "filePath": "_layout/users.tsx",
+      "parent": "/_layout"
+    },
     "/_layout/": {
       "filePath": "_layout/index.tsx",
-      "parent": "/_layout"
-    },
-    "/_layout/videocall/rooms": {
-      "filePath": "_layout/videocall/rooms.tsx",
-      "parent": "/_layout"
-    },
-    "/_layout/videocall/users": {
-      "filePath": "_layout/videocall/users.tsx",
       "parent": "/_layout"
     }
   }
