@@ -1,4 +1,4 @@
-import { ChevronRight, MonitorCog, Users, type LucideIcon } from "lucide-react";
+import { ChevronRight, MonitorCog, Users, Video, type LucideIcon } from "lucide-react";
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import {
@@ -41,7 +41,15 @@ const routeGroups: RouteGroup[] = [
     icon: Users,
     routes: [
       { label: "Geolocalizzazione", path: "/geolocation" },
-      { label: "Fotocamera", path: "/camera" },
+      { label: "Webcam", path: "/camera" },
+    ],
+  },
+  {
+    label: "Videochiamata",
+    icon: Video,
+    routes: [
+      { label: "Utenti", path: "/videocall/users" },
+      { label: "Stanze", path: "/videocall/rooms" },
     ],
   },
 ] as const;

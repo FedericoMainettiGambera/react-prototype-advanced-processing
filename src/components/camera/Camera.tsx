@@ -20,8 +20,8 @@ const CameraPermission = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Permesso di fotocamera</CardTitle>
-        <CardDescription>Gestisci il permesso di utilizzo della fotocamera</CardDescription>
+        <CardTitle>Permesso di webcam</CardTitle>
+        <CardDescription>Gestisci il permesso di utilizzo della webcam</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex flex-row items-center gap-2">
