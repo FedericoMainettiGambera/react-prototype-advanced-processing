@@ -24,7 +24,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-export function EditProfileForm({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
+export function EditProfileForm() {
   const auth = useAuth();
 
   const form = useForm<FormData>({
