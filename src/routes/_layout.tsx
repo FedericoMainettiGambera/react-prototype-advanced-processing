@@ -1,17 +1,16 @@
 import { AppSidebar } from "@/components/layout/sidebar/AppSidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@radix-ui/react-separator";
-import { Outlet, createFileRoute } from "@tanstack/react-router";
+import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_layout")({
-  // commented out so you can navigate pages even if login api doesn't work (due to CORS problems)
-  // beforeLoad: ({ context }) => {
-  //   if (!context.auth.isSignedIn) {
-  //     throw redirect({
-  //       to: "/signin",
-  //     });
-  //   }
-  // },
+  beforeLoad: ({ context }) => {
+    if (!context.auth.isSignedIn) {
+      throw redirect({
+        to: "/signin",
+      });
+    }
+  },
   component: LayoutComponent,
 });
 

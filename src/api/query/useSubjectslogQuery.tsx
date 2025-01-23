@@ -1,14 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { axiosClient } from "../axios";
-import type { Subjectslog } from "../types";
 
-type SubjectslogFilterRequest = {
+type SubjectslogInputRequest = {
   filters: {
-    gender?: string;
     name1?: string;
     name2?: string;
-    birthdate?: string;
   };
   pagination: {
     limit: number;
@@ -16,17 +13,22 @@ type SubjectslogFilterRequest = {
   };
 };
 
+export type User = {
+  name1: string | null;
+  name2: string | null;
+  birthdate: string | null;
+  gender: string | null;
+};
+
 type SubjectslogResponse = {
-  items: Pick<Subjectslog, "name1" | "name2" | "birthdate" | "gender">[];
+  items: User[];
   count: number;
 };
 
-const fetchFilteredSubjectslog = async (input: SubjectslogFilterRequest) => {
+const fetchFilteredSubjectslog = async (input: SubjectslogInputRequest) => {
   const body = {
-    Gender: input.filters.gender,
     Name1: input.filters.name1,
     Name2: input.filters.name2,
-    Birthdate: input.filters.birthdate,
     Limit: input.pagination.limit,
     Offset: input.pagination.offset,
   };
@@ -35,7 +37,7 @@ const fetchFilteredSubjectslog = async (input: SubjectslogFilterRequest) => {
   return response.data;
 };
 
-export const useSubjectslogQuery = (input: SubjectslogFilterRequest) => {
+export const useSubjectslogQuery = (input: SubjectslogInputRequest) => {
   const query = useQuery<SubjectslogResponse>({
     queryKey: ["subjectslogs", input],
     queryFn: () => fetchFilteredSubjectslog(input),
@@ -53,17 +55,15 @@ export const useSubjectslogQuery = (input: SubjectslogFilterRequest) => {
   return query;
 };
 
-export const useSubjectslogTableState = (initialState?: SubjectslogFilterRequest) => {
-  const state = useState<SubjectslogFilterRequest>(
+export const useSubjectslogTableState = (initialState?: SubjectslogInputRequest) => {
+  const state = useState<SubjectslogInputRequest>(
     initialState || {
       filters: {
-        gender: undefined,
-        name1: undefined,
-        name2: undefined,
-        birthdate: undefined,
+        name1: "",
+        name2: "",
       },
       pagination: {
-        limit: 10,
+        limit: 300,
         offset: 0,
       },
     }

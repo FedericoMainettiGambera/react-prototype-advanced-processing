@@ -45,9 +45,20 @@ const routeGroups: RouteGroup[] = [
     ],
   },
   {
+    label: "AG Grid",
+    icon: Table2,
+    routes: [
+      { label: "Dati locali", path: "/users-ag-grid-local" },
+      { label: "Dati remoti *", path: "/users-ag-grid-remote" },
+    ],
+  },
+  {
     label: "Syncfusion",
     icon: Table2,
-    routes: [{ label: "DataGrid", path: "/users" }],
+    routes: [
+      { label: "Dati locali *", path: "/users-syncfusion-local" },
+      { label: "Dati remoti *", path: "/users-syncfusion-remote" },
+    ],
   },
 ] as const;
 
