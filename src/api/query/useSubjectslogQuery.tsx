@@ -13,7 +13,7 @@ type SubjectslogInputRequest = {
   };
 };
 
-export type User = {
+type User = {
   name1: string | null;
   name2: string | null;
   birthdate: string | null;

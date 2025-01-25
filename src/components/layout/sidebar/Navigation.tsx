@@ -45,20 +45,9 @@ const routeGroups: RouteGroup[] = [
     ],
   },
   {
-    label: "AG Grid",
+    label: "Grid",
     icon: Table2,
-    routes: [
-      { label: "Dati locali", path: "/users-ag-grid-local" },
-      { label: "Dati remoti *", path: "/users-ag-grid-remote" },
-    ],
-  },
-  {
-    label: "Syncfusion",
-    icon: Table2,
-    routes: [
-      { label: "Dati locali *", path: "/users-syncfusion-local" },
-      { label: "Dati remoti *", path: "/users-syncfusion-remote" },
-    ],
+    routes: [{ label: "Tabella configurabile", path: "/table" }],
   },
 ] as const;
 

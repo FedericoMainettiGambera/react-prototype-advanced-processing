@@ -14,11 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as SigninImport } from './routes/signin'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
-import { Route as LayoutUsersViewerImport } from './routes/_layout/users-viewer'
-import { Route as LayoutUsersSyncfusionRemoteImport } from './routes/_layout/users-syncfusion-remote'
-import { Route as LayoutUsersSyncfusionLocalImport } from './routes/_layout/users-syncfusion-local'
-import { Route as LayoutUsersAgGridRemoteImport } from './routes/_layout/users-ag-grid-remote'
-import { Route as LayoutUsersAgGridLocalImport } from './routes/_layout/users-ag-grid-local'
+import { Route as LayoutTableImport } from './routes/_layout/table'
 import { Route as LayoutProfileImport } from './routes/_layout/profile'
 import { Route as LayoutMeasuresImport } from './routes/_layout/measures'
 import { Route as LayoutInfoImport } from './routes/_layout/info'
@@ -45,36 +41,9 @@ const LayoutIndexRoute = LayoutIndexImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
-const LayoutUsersViewerRoute = LayoutUsersViewerImport.update({
-  id: '/users-viewer',
-  path: '/users-viewer',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
-const LayoutUsersSyncfusionRemoteRoute =
-  LayoutUsersSyncfusionRemoteImport.update({
-    id: '/users-syncfusion-remote',
-    path: '/users-syncfusion-remote',
-    getParentRoute: () => LayoutRoute,
-  } as any)
-
-const LayoutUsersSyncfusionLocalRoute = LayoutUsersSyncfusionLocalImport.update(
-  {
-    id: '/users-syncfusion-local',
-    path: '/users-syncfusion-local',
-    getParentRoute: () => LayoutRoute,
-  } as any,
-)
-
-const LayoutUsersAgGridRemoteRoute = LayoutUsersAgGridRemoteImport.update({
-  id: '/users-ag-grid-remote',
-  path: '/users-ag-grid-remote',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
-const LayoutUsersAgGridLocalRoute = LayoutUsersAgGridLocalImport.update({
-  id: '/users-ag-grid-local',
-  path: '/users-ag-grid-local',
+const LayoutTableRoute = LayoutTableImport.update({
+  id: '/table',
+  path: '/table',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -174,39 +143,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutProfileImport
       parentRoute: typeof LayoutImport
     }
-    '/_layout/users-ag-grid-local': {
-      id: '/_layout/users-ag-grid-local'
-      path: '/users-ag-grid-local'
-      fullPath: '/users-ag-grid-local'
-      preLoaderRoute: typeof LayoutUsersAgGridLocalImport
-      parentRoute: typeof LayoutImport
-    }
-    '/_layout/users-ag-grid-remote': {
-      id: '/_layout/users-ag-grid-remote'
-      path: '/users-ag-grid-remote'
-      fullPath: '/users-ag-grid-remote'
-      preLoaderRoute: typeof LayoutUsersAgGridRemoteImport
-      parentRoute: typeof LayoutImport
-    }
-    '/_layout/users-syncfusion-local': {
-      id: '/_layout/users-syncfusion-local'
-      path: '/users-syncfusion-local'
-      fullPath: '/users-syncfusion-local'
-      preLoaderRoute: typeof LayoutUsersSyncfusionLocalImport
-      parentRoute: typeof LayoutImport
-    }
-    '/_layout/users-syncfusion-remote': {
-      id: '/_layout/users-syncfusion-remote'
-      path: '/users-syncfusion-remote'
-      fullPath: '/users-syncfusion-remote'
-      preLoaderRoute: typeof LayoutUsersSyncfusionRemoteImport
-      parentRoute: typeof LayoutImport
-    }
-    '/_layout/users-viewer': {
-      id: '/_layout/users-viewer'
-      path: '/users-viewer'
-      fullPath: '/users-viewer'
-      preLoaderRoute: typeof LayoutUsersViewerImport
+    '/_layout/table': {
+      id: '/_layout/table'
+      path: '/table'
+      fullPath: '/table'
+      preLoaderRoute: typeof LayoutTableImport
       parentRoute: typeof LayoutImport
     }
     '/_layout/': {
@@ -228,11 +169,7 @@ interface LayoutRouteChildren {
   LayoutInfoRoute: typeof LayoutInfoRoute
   LayoutMeasuresRoute: typeof LayoutMeasuresRoute
   LayoutProfileRoute: typeof LayoutProfileRoute
-  LayoutUsersAgGridLocalRoute: typeof LayoutUsersAgGridLocalRoute
-  LayoutUsersAgGridRemoteRoute: typeof LayoutUsersAgGridRemoteRoute
-  LayoutUsersSyncfusionLocalRoute: typeof LayoutUsersSyncfusionLocalRoute
-  LayoutUsersSyncfusionRemoteRoute: typeof LayoutUsersSyncfusionRemoteRoute
-  LayoutUsersViewerRoute: typeof LayoutUsersViewerRoute
+  LayoutTableRoute: typeof LayoutTableRoute
   LayoutIndexRoute: typeof LayoutIndexRoute
 }
 
@@ -243,11 +180,7 @@ const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutInfoRoute: LayoutInfoRoute,
   LayoutMeasuresRoute: LayoutMeasuresRoute,
   LayoutProfileRoute: LayoutProfileRoute,
-  LayoutUsersAgGridLocalRoute: LayoutUsersAgGridLocalRoute,
-  LayoutUsersAgGridRemoteRoute: LayoutUsersAgGridRemoteRoute,
-  LayoutUsersSyncfusionLocalRoute: LayoutUsersSyncfusionLocalRoute,
-  LayoutUsersSyncfusionRemoteRoute: LayoutUsersSyncfusionRemoteRoute,
-  LayoutUsersViewerRoute: LayoutUsersViewerRoute,
+  LayoutTableRoute: LayoutTableRoute,
   LayoutIndexRoute: LayoutIndexRoute,
 }
 
@@ -263,11 +196,7 @@ export interface FileRoutesByFullPath {
   '/info': typeof LayoutInfoRoute
   '/measures': typeof LayoutMeasuresRoute
   '/profile': typeof LayoutProfileRoute
-  '/users-ag-grid-local': typeof LayoutUsersAgGridLocalRoute
-  '/users-ag-grid-remote': typeof LayoutUsersAgGridRemoteRoute
-  '/users-syncfusion-local': typeof LayoutUsersSyncfusionLocalRoute
-  '/users-syncfusion-remote': typeof LayoutUsersSyncfusionRemoteRoute
-  '/users-viewer': typeof LayoutUsersViewerRoute
+  '/table': typeof LayoutTableRoute
   '/': typeof LayoutIndexRoute
 }
 
@@ -279,11 +208,7 @@ export interface FileRoutesByTo {
   '/info': typeof LayoutInfoRoute
   '/measures': typeof LayoutMeasuresRoute
   '/profile': typeof LayoutProfileRoute
-  '/users-ag-grid-local': typeof LayoutUsersAgGridLocalRoute
-  '/users-ag-grid-remote': typeof LayoutUsersAgGridRemoteRoute
-  '/users-syncfusion-local': typeof LayoutUsersSyncfusionLocalRoute
-  '/users-syncfusion-remote': typeof LayoutUsersSyncfusionRemoteRoute
-  '/users-viewer': typeof LayoutUsersViewerRoute
+  '/table': typeof LayoutTableRoute
   '/': typeof LayoutIndexRoute
 }
 
@@ -297,11 +222,7 @@ export interface FileRoutesById {
   '/_layout/info': typeof LayoutInfoRoute
   '/_layout/measures': typeof LayoutMeasuresRoute
   '/_layout/profile': typeof LayoutProfileRoute
-  '/_layout/users-ag-grid-local': typeof LayoutUsersAgGridLocalRoute
-  '/_layout/users-ag-grid-remote': typeof LayoutUsersAgGridRemoteRoute
-  '/_layout/users-syncfusion-local': typeof LayoutUsersSyncfusionLocalRoute
-  '/_layout/users-syncfusion-remote': typeof LayoutUsersSyncfusionRemoteRoute
-  '/_layout/users-viewer': typeof LayoutUsersViewerRoute
+  '/_layout/table': typeof LayoutTableRoute
   '/_layout/': typeof LayoutIndexRoute
 }
 
@@ -316,11 +237,7 @@ export interface FileRouteTypes {
     | '/info'
     | '/measures'
     | '/profile'
-    | '/users-ag-grid-local'
-    | '/users-ag-grid-remote'
-    | '/users-syncfusion-local'
-    | '/users-syncfusion-remote'
-    | '/users-viewer'
+    | '/table'
     | '/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -331,11 +248,7 @@ export interface FileRouteTypes {
     | '/info'
     | '/measures'
     | '/profile'
-    | '/users-ag-grid-local'
-    | '/users-ag-grid-remote'
-    | '/users-syncfusion-local'
-    | '/users-syncfusion-remote'
-    | '/users-viewer'
+    | '/table'
     | '/'
   id:
     | '__root__'
@@ -347,11 +260,7 @@ export interface FileRouteTypes {
     | '/_layout/info'
     | '/_layout/measures'
     | '/_layout/profile'
-    | '/_layout/users-ag-grid-local'
-    | '/_layout/users-ag-grid-remote'
-    | '/_layout/users-syncfusion-local'
-    | '/_layout/users-syncfusion-remote'
-    | '/_layout/users-viewer'
+    | '/_layout/table'
     | '/_layout/'
   fileRoutesById: FileRoutesById
 }
@@ -389,11 +298,7 @@ export const routeTree = rootRoute
         "/_layout/info",
         "/_layout/measures",
         "/_layout/profile",
-        "/_layout/users-ag-grid-local",
-        "/_layout/users-ag-grid-remote",
-        "/_layout/users-syncfusion-local",
-        "/_layout/users-syncfusion-remote",
-        "/_layout/users-viewer",
+        "/_layout/table",
         "/_layout/"
       ]
     },
@@ -424,24 +329,8 @@ export const routeTree = rootRoute
       "filePath": "_layout/profile.tsx",
       "parent": "/_layout"
     },
-    "/_layout/users-ag-grid-local": {
-      "filePath": "_layout/users-ag-grid-local.tsx",
-      "parent": "/_layout"
-    },
-    "/_layout/users-ag-grid-remote": {
-      "filePath": "_layout/users-ag-grid-remote.tsx",
-      "parent": "/_layout"
-    },
-    "/_layout/users-syncfusion-local": {
-      "filePath": "_layout/users-syncfusion-local.tsx",
-      "parent": "/_layout"
-    },
-    "/_layout/users-syncfusion-remote": {
-      "filePath": "_layout/users-syncfusion-remote.tsx",
-      "parent": "/_layout"
-    },
-    "/_layout/users-viewer": {
-      "filePath": "_layout/users-viewer.tsx",
+    "/_layout/table": {
+      "filePath": "_layout/table.tsx",
       "parent": "/_layout"
     },
     "/_layout/": {
