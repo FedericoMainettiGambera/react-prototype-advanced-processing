@@ -1,6 +1,6 @@
-import type { GridReadyEvent, IServerSideDatasource } from "ag-grid-community";
+import type { ColDef, GridReadyEvent, IServerSideDatasource } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { buildColumnDefsFromConfiguration, type ServerSideConfiguration } from "./mock/data/tableConfiguration";
 import { fetchRequestedData } from "./mock/fetchRequestedData.mock";
 
@@ -13,7 +13,7 @@ const createServerSideDatasource: (endPoint: string) => IServerSideDatasource = 
           endPoint: endPoint,
           request: params.request,
         });
-        params.success({ rowData: requestedData });
+        params.success({ rowData: requestedData.data, rowCount: requestedData.totalRows });
       } catch (e) {
         params.fail();
       }
@@ -23,6 +23,13 @@ const createServerSideDatasource: (endPoint: string) => IServerSideDatasource = 
 
 export default function ServerSideTable({ configuration }: { configuration: ServerSideConfiguration }) {
   const [columnDefs, setColumnDefs] = useState(buildColumnDefsFromConfiguration(configuration.columnDefs));
+  const defaultColDef = useMemo<ColDef>(() => {
+    return {
+      floatingFilter: true,
+      flex: 1,
+      minWidth: 120,
+    };
+  }, []);
 
   const onGridReady = useCallback((params: GridReadyEvent) => {
     const datasource = createServerSideDatasource(configuration.endPoint);
@@ -34,12 +41,16 @@ export default function ServerSideTable({ configuration }: { configuration: Serv
   return (
     <AgGridReact
       columnDefs={columnDefs}
+      defaultColDef={defaultColDef}
       rowModelType={configuration.rowModelType}
       onGridReady={onGridReady}
-      cacheBlockSize={configuration.cacheBlockSize}
+      rowGroupPanelShow="always"
       debug={true}
-      // if client has all the rows, switch to client side sorting
       serverSideEnableClientSideSort={true}
+      pagination={configuration.pagination}
+      cacheBlockSize={50}
+      paginationAutoPageSize={configuration.pagination}
+      suppressServerSideFullWidthLoadingRow={true}
     />
   );
 }

@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
+import type { ColDef } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { buildColumnDefsFromConfiguration, type ClientSideConfiguration } from "./mock/data/tableConfiguration";
 import { fetchAllTableData } from "./mock/fetchAllTableData.mock";
 
@@ -15,6 +16,13 @@ export const useTableDataQuery = (endPoint: string) => {
 
 export default function ClientSideTable({ configuration }: { configuration: ClientSideConfiguration }) {
   const [columnDefs, setColumnDefs] = useState(buildColumnDefsFromConfiguration(configuration.columnDefs));
+  const defaultColDef = useMemo<ColDef>(() => {
+    return {
+      floatingFilter: true,
+      flex: 1,
+      minWidth: 120,
+    };
+  }, []);
 
   const tableDataQuery = useTableDataQuery(configuration.endPoint);
 
@@ -23,7 +31,12 @@ export default function ClientSideTable({ configuration }: { configuration: Clie
       loading={tableDataQuery.isLoading}
       rowData={tableDataQuery.data as any[]}
       columnDefs={columnDefs}
+      defaultColDef={defaultColDef}
       rowModelType={configuration.rowModelType}
+      rowGroupPanelShow="always"
+      pagination={configuration.pagination}
+      paginationAutoPageSize={configuration.pagination}
+      suppressServerSideFullWidthLoadingRow={true}
       debug={true}
     />
   );
