@@ -38,6 +38,9 @@ export default function ServerSideTable({ configuration }: { configuration: Serv
       onGridReady={onGridReady}
       cacheBlockSize={configuration.cacheBlockSize}
       debug={true}
+
+      // if client has all the rows, switch to client side sorting
+      serverSideEnableClientSideSort={true}
     />
   );
 }

@@ -5,11 +5,25 @@ export const fetchRequestedData: (input: { request: IServerSideGetRowsRequest; e
   request,
   endPoint,
 }) => {
-  const { startRow, endRow } = request;
+  const { startRow, endRow, sortModel } = request;
+
+  const sortedData = [...tableMockData].sort((a, b) => {
+    for (const { colId, sort } of sortModel) {
+      const valueA = String(a[colId as keyof typeof a]);
+      const valueB = String(b[colId as keyof typeof b]);
+      
+      if (valueA !== valueB) {
+        return sort === 'asc' 
+          ? valueA.localeCompare(valueB)
+          : valueB.localeCompare(valueA);
+      }
+    }
+    return 0;
+  });
 
   return new Promise(resolve => {
     setTimeout(() => {
-      resolve(tableMockData.slice(startRow, endRow));
+      resolve(sortedData.slice(startRow, endRow));
     }, 500);
   });
 };

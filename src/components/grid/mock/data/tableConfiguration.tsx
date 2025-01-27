@@ -3,7 +3,7 @@ import type { ColDef, RowModelType } from "ag-grid-community";
 type ServerSideRowModelType = Extract<RowModelType, "serverSide">;
 type ClientSideRowModelType = Extract<RowModelType, "clientSide">;
 
-type ColumnDefinition = Pick<ColDef, "field" | "headerName">;
+type ColumnDefinition = Pick<ColDef, "field" | "headerName" | "sortable">;
 type ColumnsDefinition = ColumnDefinition[];
 
 export type ServerSideConfiguration = {
@@ -24,23 +24,27 @@ export type TableConfiguration = ClientSideConfiguration | ServerSideConfigurati
 export const tableConfigurationMockData: TableConfiguration = {
   rowModelType: "serverSide",
   endPoint: "/api/example",
-  cacheBlockSize: 50,
+  cacheBlockSize: 50000,
   columnDefs: [
     {
       field: "name2",
       headerName: "Nome",
+      sortable: true,
     },
     {
       field: "name1",
       headerName: "Cognome",
+      sortable: true,
     },
     {
       field: "birthdate",
       headerName: "Data di nascita",
+      sortable: false,
     },
     {
       field: "gender",
       headerName: "Sesso",
+      sortable: false,
     },
   ],
 };
