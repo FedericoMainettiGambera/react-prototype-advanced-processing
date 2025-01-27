@@ -1,7 +1,7 @@
 import type { GridReadyEvent, IServerSideDatasource } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
 import { useCallback, useState } from "react";
-import type { ServerSideConfiguration } from "./mock/data/tableConfiguration";
+import { buildColumnDefsFromConfiguration, type ServerSideConfiguration } from "./mock/data/tableConfiguration";
 import { fetchRequestedData } from "./mock/fetchRequestedData.mock";
 
 const createServerSideDatasource: (endPoint: string) => IServerSideDatasource = endPoint => {
@@ -22,7 +22,7 @@ const createServerSideDatasource: (endPoint: string) => IServerSideDatasource = 
 };
 
 export default function ServerSideTable({ configuration }: { configuration: ServerSideConfiguration }) {
-  const [columnDefs, setColumnDefs] = useState(configuration.columnDefs);
+  const [columnDefs, setColumnDefs] = useState(buildColumnDefsFromConfiguration(configuration.columnDefs));
 
   const onGridReady = useCallback((params: GridReadyEvent) => {
     const datasource = createServerSideDatasource(configuration.endPoint);
@@ -38,7 +38,6 @@ export default function ServerSideTable({ configuration }: { configuration: Serv
       onGridReady={onGridReady}
       cacheBlockSize={configuration.cacheBlockSize}
       debug={true}
-
       // if client has all the rows, switch to client side sorting
       serverSideEnableClientSideSort={true}
     />
