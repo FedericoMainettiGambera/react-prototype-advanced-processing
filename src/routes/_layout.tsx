@@ -1,16 +1,17 @@
 import { AppSidebar } from "@/components/layout/sidebar/AppSidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@radix-ui/react-separator";
-import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
+import { Outlet, createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_layout")({
-  beforeLoad: ({ context }) => {
-    if (!context.auth.isSignedIn) {
-      throw redirect({
-        to: "/signin",
-      });
-    }
-  },
+  // remove authenthication check for development purpose
+  // beforeLoad: ({ context }) => {
+  //   if (!context.auth.isSignedIn) {
+  //     throw redirect({
+  //       to: "/signin",
+  //     });
+  //   }
+  // },
   component: LayoutComponent,
 });
 

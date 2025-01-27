@@ -7,4 +7,4 @@ export type TableData = {
   gender: string | null;
 };
 
-export const tableData: TableData = localUsersData as TableData;
+export const tableMockData: TableData[] = localUsersData as TableData[];

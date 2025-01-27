@@ -1,5 +1,9 @@
-import { tableData } from "./data/tableData";
+import { tableMockData, type TableData } from "./data/tableData";
 
-export const fetchAllTableData = async () => {
-  return Promise.resolve(tableData);
+export const fetchAllTableData: () => Promise<TableData[]> = async () => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(tableMockData);
+    }, 500);
+  });
 };
