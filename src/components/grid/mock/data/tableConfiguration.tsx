@@ -9,21 +9,21 @@ type ColumnsDefinition = ColumnDefinition[];
 export type ServerSideConfiguration = {
   rowModelType: ServerSideRowModelType;
   columnDefs: ColumnsDefinition;
-  getEndPoint: string;
+  endPoint: string;
   cacheBlockSize: number;
 };
 
 export type ClientSideConfiguration = {
   rowModelType: ClientSideRowModelType;
   columnDefs: ColumnsDefinition;
-  getEndPoint: string;
+  endPoint: string;
 };
 
 export type TableConfiguration = ClientSideConfiguration | ServerSideConfiguration;
 
 export const tableConfigurationMockData: TableConfiguration = {
   rowModelType: "serverSide",
-  getEndPoint: "/api/example",
+  endPoint: "/api/example",
   cacheBlockSize: 50,
   columnDefs: [
     {

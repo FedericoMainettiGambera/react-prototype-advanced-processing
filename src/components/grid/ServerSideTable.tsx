@@ -4,12 +4,15 @@ import { useCallback, useState } from "react";
 import type { ServerSideConfiguration } from "./mock/data/tableConfiguration";
 import { fetchRequestedData } from "./mock/fetchRequestedData.mock";
 
-const createServerSideDatasource: () => IServerSideDatasource = () => {
+const createServerSideDatasource: (endPoint: string) => IServerSideDatasource = endPoint => {
   return {
     getRows: async params => {
       console.log("[Datasource] - rows requested by grid: ", params.request);
       try {
-        const requestedData = await fetchRequestedData(params.request);
+        const requestedData = await fetchRequestedData({
+          endPoint: endPoint,
+          request: params.request,
+        });
         params.success({ rowData: requestedData });
       } catch (e) {
         params.fail();
@@ -22,7 +25,7 @@ export default function ServerSideTable({ configuration }: { configuration: Serv
   const [columnDefs, setColumnDefs] = useState(configuration.columnDefs);
 
   const onGridReady = useCallback((params: GridReadyEvent) => {
-    const datasource = createServerSideDatasource();
+    const datasource = createServerSideDatasource(configuration.endPoint);
     params.api!.setGridOption("serverSideDatasource", datasource);
 
     params.api!.ensureIndexVisible(5000, "top");
