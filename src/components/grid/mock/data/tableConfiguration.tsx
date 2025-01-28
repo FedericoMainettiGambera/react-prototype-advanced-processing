@@ -46,6 +46,13 @@ export const tableConfigurationMockData: TableConfiguration = {
   pagination: false,
   columnDefs: [
     {
+      field: "id",
+      headerName: "ID",
+      sortable: true,
+      filter: "text",
+      enableRowGroup: true,
+    },
+    {
       field: "name2",
       headerName: "Nome",
       sortable: true,

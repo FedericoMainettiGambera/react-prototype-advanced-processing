@@ -57,7 +57,13 @@ export const fetchRequestedData: (input: { request: IServerSideGetRowsRequest; e
         return acc;
       }, {});
 
+      // Create parent groups with inherited group values
+      const parentGroups = rowGroupCols
+        .slice(0, currentGroupLevel)
+        .map((col, index) => [col.field, groupKeys[index]]);
+
       processedData = Object.entries(groupedData).map(([groupValue, rows]) => ({
+        ...Object.fromEntries(parentGroups),
         [currentGroupField]: groupValue,
         childCount: rows.length,
       })) as unknown as TableData[];

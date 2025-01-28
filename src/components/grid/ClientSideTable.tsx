@@ -20,7 +20,7 @@ export default function ClientSideTable({ configuration }: { configuration: Clie
     return {
       floatingFilter: true,
       flex: 1,
-      minWidth: 120,
+      enableCellChangeFlash: true,
     };
   }, []);
 
@@ -29,7 +29,7 @@ export default function ClientSideTable({ configuration }: { configuration: Clie
   return (
     <AgGridReact
       loading={tableDataQuery.isLoading}
-      rowData={tableDataQuery.data as any[]}
+      rowData={tableDataQuery.data?.data}
       columnDefs={columnDefs}
       defaultColDef={defaultColDef}
       rowModelType={configuration.rowModelType}

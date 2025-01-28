@@ -27,7 +27,7 @@ export default function ServerSideTable({ configuration }: { configuration: Serv
     return {
       floatingFilter: true,
       flex: 1,
-      minWidth: 120,
+      enableCellChangeFlash: true,
     };
   }, []);
 
