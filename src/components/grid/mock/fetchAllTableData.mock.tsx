@@ -4,7 +4,7 @@ type FetchResponse = {
   data: TableData[];
 };
 
-export const fetchAllTableData: (input: { endPoint: string }) => Promise<FetchResponse> = async ({ endPoint }) => {
+export const fetchAllTableData: (input: { endPoint: string }) => Promise<FetchResponse> = async () => {
   return new Promise(resolve => {
     setTimeout(() => {
       resolve({

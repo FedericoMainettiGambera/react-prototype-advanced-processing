@@ -8,7 +8,6 @@ type FetchResponse = {
 
 export const fetchRequestedData: (input: { request: IServerSideGetRowsRequest; endPoint: string }) => Promise<FetchResponse> = async ({
   request,
-  endPoint,
 }) => {
   const { startRow, endRow, sortModel, filterModel, rowGroupCols, groupKeys = [] } = request;
 
