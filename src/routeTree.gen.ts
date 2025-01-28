@@ -14,7 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as SigninImport } from './routes/signin'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
-import { Route as LayoutTableImport } from './routes/_layout/table'
+import { Route as LayoutServicesImport } from './routes/_layout/services'
 import { Route as LayoutProfileImport } from './routes/_layout/profile'
 import { Route as LayoutMeasuresImport } from './routes/_layout/measures'
 import { Route as LayoutInfoImport } from './routes/_layout/info'
@@ -41,9 +41,9 @@ const LayoutIndexRoute = LayoutIndexImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
-const LayoutTableRoute = LayoutTableImport.update({
-  id: '/table',
-  path: '/table',
+const LayoutServicesRoute = LayoutServicesImport.update({
+  id: '/services',
+  path: '/services',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -143,11 +143,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutProfileImport
       parentRoute: typeof LayoutImport
     }
-    '/_layout/table': {
-      id: '/_layout/table'
-      path: '/table'
-      fullPath: '/table'
-      preLoaderRoute: typeof LayoutTableImport
+    '/_layout/services': {
+      id: '/_layout/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof LayoutServicesImport
       parentRoute: typeof LayoutImport
     }
     '/_layout/': {
@@ -169,7 +169,7 @@ interface LayoutRouteChildren {
   LayoutInfoRoute: typeof LayoutInfoRoute
   LayoutMeasuresRoute: typeof LayoutMeasuresRoute
   LayoutProfileRoute: typeof LayoutProfileRoute
-  LayoutTableRoute: typeof LayoutTableRoute
+  LayoutServicesRoute: typeof LayoutServicesRoute
   LayoutIndexRoute: typeof LayoutIndexRoute
 }
 
@@ -180,7 +180,7 @@ const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutInfoRoute: LayoutInfoRoute,
   LayoutMeasuresRoute: LayoutMeasuresRoute,
   LayoutProfileRoute: LayoutProfileRoute,
-  LayoutTableRoute: LayoutTableRoute,
+  LayoutServicesRoute: LayoutServicesRoute,
   LayoutIndexRoute: LayoutIndexRoute,
 }
 
@@ -196,7 +196,7 @@ export interface FileRoutesByFullPath {
   '/info': typeof LayoutInfoRoute
   '/measures': typeof LayoutMeasuresRoute
   '/profile': typeof LayoutProfileRoute
-  '/table': typeof LayoutTableRoute
+  '/services': typeof LayoutServicesRoute
   '/': typeof LayoutIndexRoute
 }
 
@@ -208,7 +208,7 @@ export interface FileRoutesByTo {
   '/info': typeof LayoutInfoRoute
   '/measures': typeof LayoutMeasuresRoute
   '/profile': typeof LayoutProfileRoute
-  '/table': typeof LayoutTableRoute
+  '/services': typeof LayoutServicesRoute
   '/': typeof LayoutIndexRoute
 }
 
@@ -222,7 +222,7 @@ export interface FileRoutesById {
   '/_layout/info': typeof LayoutInfoRoute
   '/_layout/measures': typeof LayoutMeasuresRoute
   '/_layout/profile': typeof LayoutProfileRoute
-  '/_layout/table': typeof LayoutTableRoute
+  '/_layout/services': typeof LayoutServicesRoute
   '/_layout/': typeof LayoutIndexRoute
 }
 
@@ -237,7 +237,7 @@ export interface FileRouteTypes {
     | '/info'
     | '/measures'
     | '/profile'
-    | '/table'
+    | '/services'
     | '/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -248,7 +248,7 @@ export interface FileRouteTypes {
     | '/info'
     | '/measures'
     | '/profile'
-    | '/table'
+    | '/services'
     | '/'
   id:
     | '__root__'
@@ -260,7 +260,7 @@ export interface FileRouteTypes {
     | '/_layout/info'
     | '/_layout/measures'
     | '/_layout/profile'
-    | '/_layout/table'
+    | '/_layout/services'
     | '/_layout/'
   fileRoutesById: FileRoutesById
 }
@@ -298,7 +298,7 @@ export const routeTree = rootRoute
         "/_layout/info",
         "/_layout/measures",
         "/_layout/profile",
-        "/_layout/table",
+        "/_layout/services",
         "/_layout/"
       ]
     },
@@ -329,8 +329,8 @@ export const routeTree = rootRoute
       "filePath": "_layout/profile.tsx",
       "parent": "/_layout"
     },
-    "/_layout/table": {
-      "filePath": "_layout/table.tsx",
+    "/_layout/services": {
+      "filePath": "_layout/services.tsx",
       "parent": "/_layout"
     },
     "/_layout/": {

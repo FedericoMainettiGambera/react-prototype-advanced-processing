@@ -28,13 +28,9 @@ export type RouteGroup = {
 
 const routeGroups: RouteGroup[] = [
   {
-    label: "Configurazione",
-    icon: MonitorCog,
-    routes: [
-      { label: "Servizi", path: "/" },
-      { label: "Misure", path: "/measures" },
-      { label: "Dispositivi", path: "/devices" },
-    ],
+    label: "Grid",
+    icon: Table2,
+    routes: [{ label: "Tabella configurabile", path: "/" }],
   },
   {
     label: "Funzionalità",
@@ -45,9 +41,13 @@ const routeGroups: RouteGroup[] = [
     ],
   },
   {
-    label: "Grid",
-    icon: Table2,
-    routes: [{ label: "Tabella configurabile", path: "/table" }],
+    label: "Configurazione",
+    icon: MonitorCog,
+    routes: [
+      { label: "Servizi", path: "/" },
+      { label: "Misure", path: "/measures" },
+      { label: "Dispositivi", path: "/devices" },
+    ],
   },
 ] as const;
 

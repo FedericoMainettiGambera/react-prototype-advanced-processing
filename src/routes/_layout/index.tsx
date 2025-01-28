@@ -1,32 +1,41 @@
-import { useAppConfigQuery } from '@/api/query/useAppConfigQuery'
-import ServiceCard from '@/components/home/ServiceCard'
+import ConfigurableTable from '@/components/grid/ConfigurableTable'
+import { useTableConfigurationQuery } from '@/components/grid/mock/useTableConfigurationQuery'
+import TableConfigurationViewer from '@/components/grid/TableConfigurationViewer'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_layout/')({
-  component: Page,
+  component: RouteComponent,
 })
 
-function Page() {
-  const appConfigQuery = useAppConfigQuery()
+function RouteComponent() {
+  const tableConfigurationQuery = useTableConfigurationQuery()
+
+  if (tableConfigurationQuery.isLoading) {
+    return <div>Caricamento...</div>
+  }
+
+  if (tableConfigurationQuery.isError) {
+    return <div>Errore: {tableConfigurationQuery.error.message}</div>
+  }
+
+  if (!tableConfigurationQuery.isSuccess) {
+    return (
+      <div>
+        Qualcosa è andato storto durante il caricamento della configuratione
+        della tabella
+      </div>
+    )
+  }
 
   return (
-    <div>
-      {appConfigQuery.isLoading && <div>Caricamento</div>}
-      {appConfigQuery.isError && (
-        <div>Errore: {appConfigQuery.error.message}</div>
-      )}
-      {appConfigQuery.isSuccess && (
-        <div className="flex flex-col gap-4">
-          <div className="font-semibold text-xl">Servizi</div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {appConfigQuery.data.services
-              .filter((service) => service.Config.Action === 'view')
-              .map((service) => (
-                <ServiceCard key={service.Id} service={service} />
-              ))}
-          </div>
-        </div>
-      )}
+    <div className="flex flex-col gap-6">
+      <h1 className="font-semibold text-xl">
+        Tabella AG Grid con dati configurabili
+      </h1>
+      <div className="h-[700px]">
+        <ConfigurableTable configuration={tableConfigurationQuery.data} />
+      </div>
+      <TableConfigurationViewer configuration={tableConfigurationQuery.data} />
     </div>
   )
 }
