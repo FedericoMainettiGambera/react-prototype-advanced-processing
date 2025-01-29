@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { ColDef } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
 import { useMemo, useState } from "react";
-import { buildColumnDefsFromConfiguration, type ClientSideConfiguration } from "./mock/data/tableConfiguration";
+import { buildColumnDefsFromConfiguration, type TableConfiguration } from "./mock/data/tableConfiguration";
 import { fetchAllTableData } from "./mock/fetchAllTableData.mock";
 
 export const useTableDataQuery = (endPoint: string) => {
@@ -14,7 +14,7 @@ export const useTableDataQuery = (endPoint: string) => {
   return query;
 };
 
-export default function ClientSideTable({ configuration }: { configuration: ClientSideConfiguration }) {
+export default function ClientSideTable({ configuration }: { configuration: TableConfiguration }) {
   const [columnDefs, setColumnDefs] = useState(buildColumnDefsFromConfiguration(configuration.columnDefs));
   const defaultColDef = useMemo<ColDef>(() => {
     return {

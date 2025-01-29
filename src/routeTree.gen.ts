@@ -16,6 +16,7 @@ import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
 import { Route as LayoutServicesImport } from './routes/_layout/services'
 import { Route as LayoutProfileImport } from './routes/_layout/profile'
+import { Route as LayoutOldTableImport } from './routes/_layout/old-table'
 import { Route as LayoutMeasuresImport } from './routes/_layout/measures'
 import { Route as LayoutInfoImport } from './routes/_layout/info'
 import { Route as LayoutGeolocationImport } from './routes/_layout/geolocation'
@@ -50,6 +51,12 @@ const LayoutServicesRoute = LayoutServicesImport.update({
 const LayoutProfileRoute = LayoutProfileImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutOldTableRoute = LayoutOldTableImport.update({
+  id: '/old-table',
+  path: '/old-table',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -136,6 +143,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutMeasuresImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/old-table': {
+      id: '/_layout/old-table'
+      path: '/old-table'
+      fullPath: '/old-table'
+      preLoaderRoute: typeof LayoutOldTableImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/profile': {
       id: '/_layout/profile'
       path: '/profile'
@@ -168,6 +182,7 @@ interface LayoutRouteChildren {
   LayoutGeolocationRoute: typeof LayoutGeolocationRoute
   LayoutInfoRoute: typeof LayoutInfoRoute
   LayoutMeasuresRoute: typeof LayoutMeasuresRoute
+  LayoutOldTableRoute: typeof LayoutOldTableRoute
   LayoutProfileRoute: typeof LayoutProfileRoute
   LayoutServicesRoute: typeof LayoutServicesRoute
   LayoutIndexRoute: typeof LayoutIndexRoute
@@ -179,6 +194,7 @@ const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutGeolocationRoute: LayoutGeolocationRoute,
   LayoutInfoRoute: LayoutInfoRoute,
   LayoutMeasuresRoute: LayoutMeasuresRoute,
+  LayoutOldTableRoute: LayoutOldTableRoute,
   LayoutProfileRoute: LayoutProfileRoute,
   LayoutServicesRoute: LayoutServicesRoute,
   LayoutIndexRoute: LayoutIndexRoute,
@@ -195,6 +211,7 @@ export interface FileRoutesByFullPath {
   '/geolocation': typeof LayoutGeolocationRoute
   '/info': typeof LayoutInfoRoute
   '/measures': typeof LayoutMeasuresRoute
+  '/old-table': typeof LayoutOldTableRoute
   '/profile': typeof LayoutProfileRoute
   '/services': typeof LayoutServicesRoute
   '/': typeof LayoutIndexRoute
@@ -207,6 +224,7 @@ export interface FileRoutesByTo {
   '/geolocation': typeof LayoutGeolocationRoute
   '/info': typeof LayoutInfoRoute
   '/measures': typeof LayoutMeasuresRoute
+  '/old-table': typeof LayoutOldTableRoute
   '/profile': typeof LayoutProfileRoute
   '/services': typeof LayoutServicesRoute
   '/': typeof LayoutIndexRoute
@@ -221,6 +239,7 @@ export interface FileRoutesById {
   '/_layout/geolocation': typeof LayoutGeolocationRoute
   '/_layout/info': typeof LayoutInfoRoute
   '/_layout/measures': typeof LayoutMeasuresRoute
+  '/_layout/old-table': typeof LayoutOldTableRoute
   '/_layout/profile': typeof LayoutProfileRoute
   '/_layout/services': typeof LayoutServicesRoute
   '/_layout/': typeof LayoutIndexRoute
@@ -236,6 +255,7 @@ export interface FileRouteTypes {
     | '/geolocation'
     | '/info'
     | '/measures'
+    | '/old-table'
     | '/profile'
     | '/services'
     | '/'
@@ -247,6 +267,7 @@ export interface FileRouteTypes {
     | '/geolocation'
     | '/info'
     | '/measures'
+    | '/old-table'
     | '/profile'
     | '/services'
     | '/'
@@ -259,6 +280,7 @@ export interface FileRouteTypes {
     | '/_layout/geolocation'
     | '/_layout/info'
     | '/_layout/measures'
+    | '/_layout/old-table'
     | '/_layout/profile'
     | '/_layout/services'
     | '/_layout/'
@@ -297,6 +319,7 @@ export const routeTree = rootRoute
         "/_layout/geolocation",
         "/_layout/info",
         "/_layout/measures",
+        "/_layout/old-table",
         "/_layout/profile",
         "/_layout/services",
         "/_layout/"
@@ -323,6 +346,10 @@ export const routeTree = rootRoute
     },
     "/_layout/measures": {
       "filePath": "_layout/measures.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/old-table": {
+      "filePath": "_layout/old-table.tsx",
       "parent": "/_layout"
     },
     "/_layout/profile": {

@@ -1,30 +1,17 @@
 import type { ColDef, RowModelType } from "ag-grid-community";
 
-type ServerSideRowModelType = Extract<RowModelType, "serverSide">;
-type ClientSideRowModelType = Extract<RowModelType, "clientSide">;
-
 type ColumnDefinition = Pick<ColDef, "field" | "headerName" | "sortable" | "enableRowGroup"> & {
   filter?: "text";
 };
-type ColumnDefinitions = ColumnDefinition[];
 
-export type ServerSideConfiguration = {
-  rowModelType: ServerSideRowModelType;
-  columnDefs: ColumnDefinitions;
+export type TableConfiguration = {
+  rowModelType: Extract<RowModelType, "serverSide" | "clientSide">;
   endPoint: string;
   pagination: boolean;
+  columnDefs: ColumnDefinition[];
 };
 
-export type ClientSideConfiguration = {
-  rowModelType: ClientSideRowModelType;
-  columnDefs: ColumnDefinitions;
-  endPoint: string;
-  pagination: boolean;
-};
-
-export type TableConfiguration = ClientSideConfiguration | ServerSideConfiguration;
-
-export const buildColumnDefsFromConfiguration: (colDefs: ColumnDefinitions) => ColDef[] = (colDefs: ColumnDefinitions) => {
+export const buildColumnDefsFromConfiguration: (colDefs: ColumnDefinition[]) => ColDef[] = (colDefs: ColumnDefinition[]) => {
   return colDefs.map(colDef => ({
     field: colDef.field,
     headerName: colDef.headerName,

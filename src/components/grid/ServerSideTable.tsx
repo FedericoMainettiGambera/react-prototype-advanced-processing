@@ -1,7 +1,7 @@
 import type { ColDef, GridReadyEvent, IServerSideDatasource } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
 import { useCallback, useMemo, useState } from "react";
-import { buildColumnDefsFromConfiguration, type ServerSideConfiguration } from "./mock/data/tableConfiguration";
+import { buildColumnDefsFromConfiguration, type TableConfiguration } from "./mock/data/tableConfiguration";
 import { fetchRequestedData } from "./mock/fetchRequestedData.mock";
 
 const createServerSideDatasource: (endPoint: string) => IServerSideDatasource = endPoint => {
@@ -21,7 +21,7 @@ const createServerSideDatasource: (endPoint: string) => IServerSideDatasource = 
   };
 };
 
-export default function ServerSideTable({ configuration }: { configuration: ServerSideConfiguration }) {
+export default function ServerSideTable({ configuration }: { configuration: TableConfiguration }) {
   const [columnDefs, setColumnDefs] = useState(buildColumnDefsFromConfiguration(configuration.columnDefs));
   const defaultColDef = useMemo<ColDef>(() => {
     return {
