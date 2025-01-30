@@ -3,8 +3,8 @@ import type { IServerSideGetRowsRequest } from "ag-grid-community";
 import axios from "axios";
 
 type Response = {
-  rowData: any[];
-  rowCount: number;
+  rows: any[];
+  lastRow: number;
 };
 
 export const fetchServerSideData = async ({ endPoint, request }: { endPoint: string; request: IServerSideGetRowsRequest }) => {
@@ -21,7 +21,7 @@ export const fetchServerSideData = async ({ endPoint, request }: { endPoint: str
   await new Promise(resolve => setTimeout(resolve, 500));
 
   return {
-    rowData: data.rows,
-    rowCount: data.lastRow,
+    rows: data.rows,
+    lastRow: data.lastRow,
   } as Response;
 };

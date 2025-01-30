@@ -1,12 +1,15 @@
+import { AG_GRID_LOCALE_IT } from "@ag-grid-community/locale";
 import { useQuery } from "@tanstack/react-query";
-import type { ColDef, GridReadyEvent } from "ag-grid-community";
+import type { ColDef, GridReadyEvent, SideBarDef } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { fetchConfiguration } from "./api/fetchConfiguration";
 import { fetchData } from "./api/fetchData";
+import { ColumnStateControls } from "./ColumnStateControls";
 import type { TableConfiguration } from "./types/TableConfiguration";
 import { buildColumnDefs } from "./utils/buildColumnDefs";
 import { createServerSideDatasource } from "./utils/createServerSideDatasource";
+import { dataTypeDefinitions } from "./utils/dataTypeDefinitions";
 
 export const useTableConfigurationQuery = (endPoint: string) => {
   const query = useQuery<TableConfiguration>({
@@ -42,14 +45,38 @@ export const useTableDataQuery = ({ enabled, endPoint }: { endPoint: string; ena
 };
 
 function Table({ configuration }: { configuration: TableConfiguration }) {
+  const gridRef = useRef<AgGridReact>(null);
+
+  const gridStyle = useMemo(() => ({ height: "100%", width: "100%" }), []);
+
   const [columnDefs] = useState(buildColumnDefs(configuration.columnDefs));
   const defaultColDef = useMemo<ColDef>(() => {
     return {
-      floatingFilter: true,
       flex: 1,
+      minWidth: 150,
       enableCellChangeFlash: true,
     };
   }, []);
+
+  const sideBar = useMemo<SideBarDef>(() => {
+    return {
+      toolPanels: [
+        {
+          id: "columns",
+          labelDefault: "Columns",
+          labelKey: "columns",
+          iconKey: "columns",
+          toolPanel: "agColumnsToolPanel",
+          toolPanelParams: {
+            suppressRowGroups: Boolean(columnDefs.find(col => col.enableRowGroup)),
+            suppressValues: true,
+            suppressPivots: true,
+            suppressPivotMode: true,
+          },
+        },
+      ],
+    };
+  }, [columnDefs]);
 
   // client side data (all table data)
   const tableDataQuery = useTableDataQuery({
@@ -70,23 +97,35 @@ function Table({ configuration }: { configuration: TableConfiguration }) {
   }, []);
 
   return (
-    <AgGridReact
-      // client side data props
-      loading={configuration.rowModelType === "clientSide" ? tableDataQuery.isLoading : undefined}
-      rowData={configuration.rowModelType === "clientSide" ? tableDataQuery.data?.data : undefined}
-      //server side data props
-      onGridReady={onGridReady}
-      serverSideEnableClientSideSort={configuration.rowModelType === "serverSide" ? true : undefined}
-      cacheBlockSize={configuration.rowModelType === "serverSide" ? 50 : undefined}
-      suppressServerSideFullWidthLoadingRow={configuration.rowModelType === "serverSide" ? true : undefined}
-      // common props
-      columnDefs={columnDefs}
-      defaultColDef={defaultColDef}
-      rowModelType={configuration.rowModelType}
-      rowGroupPanelShow={columnDefs.find(col => col.enableRowGroup) ? "always" : "never"}
-      pagination={configuration.pagination}
-      paginationAutoPageSize={configuration.pagination}
-      debug={true}
-    />
+    <>
+      <div className="flex items-center justify-between">
+        <h1 className="font-semibold text-xl">Tabella AG Grid con dati configurabili</h1>
+        <ColumnStateControls gridRef={gridRef} endPoint={configuration.endPoint} />
+      </div>
+      <div style={gridStyle}>
+        <AgGridReact
+          // client side data props
+          loading={configuration.rowModelType === "clientSide" ? tableDataQuery.isLoading : undefined}
+          rowData={configuration.rowModelType === "clientSide" ? tableDataQuery.data?.data : undefined}
+          //server side data props
+          onGridReady={configuration.rowModelType === "serverSide" ? onGridReady : undefined}
+          serverSideEnableClientSideSort={configuration.rowModelType === "serverSide" ? true : undefined}
+          cacheBlockSize={configuration.rowModelType === "serverSide" ? 50 : undefined}
+          suppressServerSideFullWidthLoadingRow={configuration.rowModelType === "serverSide" ? true : undefined}
+          // common props
+          ref={gridRef}
+          localeText={AG_GRID_LOCALE_IT}
+          columnDefs={columnDefs}
+          defaultColDef={defaultColDef}
+          dataTypeDefinitions={dataTypeDefinitions}
+          rowModelType={configuration.rowModelType}
+          sideBar={sideBar}
+          rowGroupPanelShow={columnDefs.find(col => col.enableRowGroup) ? "always" : "never"}
+          pagination={configuration.pagination}
+          paginationAutoPageSize={configuration.pagination}
+          debug={true}
+        />
+      </div>
+    </>
   );
 }

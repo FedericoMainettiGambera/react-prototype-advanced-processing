@@ -1,8 +1,5 @@
-import type { ColDef, RowModelType } from "ag-grid-community";
-
-export type ColumnDefinition = Pick<ColDef, "field" | "headerName" | "sortable" | "enableRowGroup"> & {
-  filter?: "text";
-};
+import type { RowModelType } from "ag-grid-community";
+import type { ColumnDefinition } from "./ColumnDefinition";
 
 export type TableConfiguration = {
   rowModelType: Extract<RowModelType, "serverSide" | "clientSide">;

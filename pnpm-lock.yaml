@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@ag-grid-community/locale':
+    specifier: ^33.0.4
+    version: 33.0.4
   '@hookform/resolvers':
     specifier: ^3.10.0
     version: 3.10.0(react-hook-form@7.54.2)
@@ -167,6 +170,10 @@ devDependencies:
     version: 6.0.5(@types/node@22.10.7)
 
 packages:
+
+  /@ag-grid-community/locale@33.0.4:
+    resolution: {integrity: sha512-P5QzTJ8yvt3DhZWv4il3tassvml+C6nzu0/zoGHTbgEJpTp91A+8fCuTy1RB3TlUbs25PM6hg/btRpL+1+3fTw==}
+    dev: false
 
   /@alloc/quick-lru@5.2.0:
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}

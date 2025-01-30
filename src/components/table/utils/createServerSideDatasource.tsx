@@ -9,7 +9,7 @@ export const createServerSideDatasource: (input: { endPoint: string }) => IServe
           endPoint: endPoint,
           request: params.request,
         });
-        params.success({ rowData: requestedData.rowData, rowCount: requestedData.rowCount });
+        params.success({ rowData: requestedData.rows, rowCount: requestedData.lastRow });
       } catch (e) {
         params.fail();
       }

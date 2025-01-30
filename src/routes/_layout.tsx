@@ -26,7 +26,7 @@ function LayoutComponent() {
             <Separator orientation="vertical" className="mr-2 h-4" />
           </div>
         </header>
-        <div className="p-4">
+        <div className="p-4 min-h-[90vh]">
           <Outlet />
         </div>
       </SidebarInset>
