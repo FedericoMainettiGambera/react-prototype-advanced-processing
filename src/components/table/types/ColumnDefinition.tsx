@@ -1,8 +1,9 @@
 import type { ColDef } from "ag-grid-community";
 import type { CellDataType } from "./CellDataType";
 
-export type ColumnDefinition = Pick<ColDef, "field" | "headerName" | "enableRowGroup"> & {
+export type ColumnDefinition = Pick<ColDef, "field" | "headerName"> & {
+  enableRowGroup: boolean;
   cellDataType: CellDataType;
-  filter?: "text";
+  filter: boolean;
   sortable: boolean;
 };

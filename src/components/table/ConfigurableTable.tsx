@@ -68,7 +68,7 @@ function Table({ configuration }: { configuration: TableConfiguration }) {
           iconKey: "columns",
           toolPanel: "agColumnsToolPanel",
           toolPanelParams: {
-            suppressRowGroups: Boolean(columnDefs.find(col => col.enableRowGroup)),
+            suppressRowGroups: !Boolean(columnDefs.find(col => col.enableRowGroup)),
             suppressValues: true,
             suppressPivots: true,
             suppressPivotMode: true,
@@ -119,6 +119,14 @@ function Table({ configuration }: { configuration: TableConfiguration }) {
           defaultColDef={defaultColDef}
           dataTypeDefinitions={dataTypeDefinitions}
           rowModelType={configuration.rowModelType}
+          rowSelection={
+            configuration.rowSelectionEnabled
+              ? {
+                  mode: "multiRow",
+                  groupSelects: "descendants",
+                }
+              : undefined
+          }
           sideBar={sideBar}
           rowGroupPanelShow={columnDefs.find(col => col.enableRowGroup) ? "always" : "never"}
           pagination={configuration.pagination}
