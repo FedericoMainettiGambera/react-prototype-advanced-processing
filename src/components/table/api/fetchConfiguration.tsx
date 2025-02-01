@@ -1,5 +1,6 @@
 import { TableConfiguration } from "../types/TableConfiguration";
 
+// fake api call to retrieve table configuration data
 export const fetchConfiguration = async (_endpoint: string) => {
   return new Promise<TableConfiguration>(resolve => {
     setTimeout(() => {

@@ -96,12 +96,13 @@ function Table({ configuration }: { configuration: TableConfiguration }) {
     params.api!.setGridOption("serverSideDatasource", datasource);
   }, []);
 
+  // will need to implement to use editing features
   // const getRowId = useCallback((params: GetRowIdParams) => {
   //   const uniqueIdValue = params.data[configuration.uniqueIdField];
-
   //   return String(uniqueIdValue);
   // }, []);
 
+  // works only with getRowId implemented
   const onCellEditRequest = useCallback((event: CellEditRequestEvent) => {
     console.log(
       "Editing request to change " +

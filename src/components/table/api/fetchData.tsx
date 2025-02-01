@@ -5,14 +5,27 @@ type Response = {
   data: any[];
 };
 
+// fetch data for table client-side mode
 export const fetchData = async (endPoint: string): Promise<Response> => {
-  const baseUrl = env.VITE_BASE_API_URL.replace(/\/$/, ""); // Remove trailing slash if present
-  const fullUrl = `${baseUrl}/${endPoint.replace(/^\//, "")}`; // Remove leading slash from endpoint
+  try {
+    const baseUrl = env.VITE_BASE_API_URL.replace(/\/$/, ""); // Remove trailing slash if present
+    const fullUrl = `${baseUrl}/${endPoint.replace(/^\//, "")}`; // Remove leading slash from endpoint
 
-  const response = await axios.get(fullUrl);
+    const response = await axios.get(fullUrl);
 
-  // Add artificial delay to simulate network latency
-  await new Promise(resolve => setTimeout(resolve, 500));
+    // Add artificial delay to simulate network latency in dev environments
+    if (import.meta.env.DEV) {
+      await new Promise(resolve => setTimeout(resolve, 500));
+    }
 
-  return { data: response.data.rows } as Response;
+    return { data: response.data.rows } as Response;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error('API Error:', error.response?.data || error.message);
+      throw new Error(error.response?.data?.message || 'Failed to fetch data');
+    } else {
+      console.error('Unexpected Error:', error);
+      throw new Error('An unexpected error occurred');
+    }
+  }
 };

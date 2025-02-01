@@ -23,6 +23,11 @@ const buildFilterProps = (colDef: ColumnDefinition) => {
   let filterParams: ColDef["filterParams"] = undefined;
   let filter: ColDef["filter"] = undefined;
 
+  if(!colDef.filtrable) {
+    return { filter: undefined, filterParams: undefined, floatingFilter: false };
+  }
+
+
   if (colDef.cellDataType === "text") {
     filter = "agTextColumnFilter";
     filterParams = {
@@ -52,6 +57,7 @@ const buildFilterProps = (colDef: ColumnDefinition) => {
 };
 
 // set up for getter and setter for custom data types
+
 // const buildValueGetterAndSetter = (colDef: ColumnDefinition) => {
 //   let valueGetter: ColDef["valueGetter"] = undefined;
 //   let valueSetter: ColDef["valueSetter"] = undefined;
@@ -67,6 +73,7 @@ const buildFilterProps = (colDef: ColumnDefinition) => {
 // };
 
 // set up for parser and formatter for custom data types
+
 // const buildValueParserAndFormatter = (colDef: ColumnDefinition) => {
 //   let valueParser: ColDef["valueParser"] = undefined;
 //   let valueFormatter: ColDef["valueFormatter"] = undefined;
