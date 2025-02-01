@@ -11,9 +11,9 @@ export const fetchConfiguration = async (_endpoint: string) => {
 
 export const mockTableConfiguration: TableConfiguration = {
   // rowModelType: "clientSide",
-  // endPoint: "/all-olympicWinners/",
+  // endPoint: "/api/all-olympicWinners/",
   rowModelType: "serverSide",
-  endPoint: "/olympicWinners/",
+  endPoint: "/api/olympicWinners/",
   pagination: false,
   rowSelectionEnabled: true,
   uniqueIdField: "id",

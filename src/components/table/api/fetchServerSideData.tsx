@@ -19,20 +19,17 @@ export const fetchServerSideData = async ({ endPoint, request }: { endPoint: str
       },
     });
 
-    // Add artificial delay to simulate network latency
-    await new Promise(resolve => setTimeout(resolve, 500));
-
     return {
       rows: data.rows,
       lastRow: data.lastRow,
     } as Response;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.error('API Error:', error.response?.data || error.message);
-      throw new Error(error.response?.data?.message || 'Failed to fetch data from server');
+      console.error("API Error:", error.response?.data || error.message);
+      throw new Error(error.response?.data?.message || "Failed to fetch data from server");
     } else {
-      console.error('Unexpected Error:', error);
-      throw new Error('An unexpected error occurred');
+      console.error("Unexpected Error:", error);
+      throw new Error("An unexpected error occurred");
     }
   }
 };

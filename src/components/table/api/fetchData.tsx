@@ -13,11 +13,6 @@ export const fetchData = async (endPoint: string): Promise<Response> => {
 
     const response = await axios.get(fullUrl);
 
-    // Add artificial delay to simulate network latency in dev environments
-    if (import.meta.env.DEV) {
-      await new Promise(resolve => setTimeout(resolve, 500));
-    }
-
     return { data: response.data.rows } as Response;
   } catch (error) {
     if (axios.isAxiosError(error)) {
