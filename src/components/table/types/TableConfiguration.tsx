@@ -6,4 +6,5 @@ export type TableConfiguration = {
   pagination: boolean;
   rowSelectionEnabled: boolean;
   columnDefs: ColumnDefinition[];
+  uniqueIdField: string;
 };

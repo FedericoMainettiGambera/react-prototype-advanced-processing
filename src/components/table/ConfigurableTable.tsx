@@ -1,6 +1,6 @@
 import { AG_GRID_LOCALE_IT } from "@ag-grid-community/locale";
 import { useQuery } from "@tanstack/react-query";
-import type { ColDef, GridReadyEvent, SideBarDef } from "ag-grid-community";
+import type { CellEditRequestEvent, ColDef, GridReadyEvent, SideBarDef } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { fetchConfiguration } from "./api/fetchConfiguration";
@@ -96,6 +96,34 @@ function Table({ configuration }: { configuration: TableConfiguration }) {
     params.api!.setGridOption("serverSideDatasource", datasource);
   }, []);
 
+  // const getRowId = useCallback((params: GetRowIdParams) => {
+  //   const uniqueIdValue = params.data[configuration.uniqueIdField];
+
+  //   return String(uniqueIdValue);
+  // }, []);
+
+  const onCellEditRequest = useCallback((event: CellEditRequestEvent) => {
+    console.log(
+      "Editing request to change " +
+        event.colDef.field +
+        " of row " +
+        event.rowIndex +
+        " from " +
+        event.oldValue +
+        " to value " +
+        event.newValue +
+        "."
+    );
+
+    const oldData = event.data;
+    const field = event.colDef.field;
+    const newData = { ...oldData };
+    newData[field!] = event.newValue;
+    event.api.applyTransaction({
+      update: [newData],
+    });
+  }, []);
+
   return (
     <>
       <div className="flex items-center justify-between">
@@ -132,6 +160,12 @@ function Table({ configuration }: { configuration: TableConfiguration }) {
           pagination={configuration.pagination}
           paginationAutoPageSize={configuration.pagination}
           debug={true}
+          //editing
+          readOnlyEdit={true}
+          onCellEditRequest={onCellEditRequest}
+          undoRedoCellEditing={false}
+          // getRowId={getRowId}
+          // editType="fullRow"
         />
       </div>
     </>

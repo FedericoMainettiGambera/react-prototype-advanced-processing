@@ -4,6 +4,7 @@ import type { CellDataType } from "./CellDataType";
 export type ColumnDefinition = Pick<ColDef, "field" | "headerName"> & {
   enableRowGroup: boolean;
   cellDataType: CellDataType;
-  filter: boolean;
+  filtrable: boolean;
   sortable: boolean;
+  editable: boolean;
 };
