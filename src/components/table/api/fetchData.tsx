@@ -8,7 +8,7 @@ type Response = {
 // fetch data for table client-side mode
 export const fetchData = async (endPoint: string): Promise<Response> => {
   try {
-    const baseUrl = env.VITE_BASE_API_URL.replace(/\/$/, ""); // Remove trailing slash if present
+    const baseUrl = env.VITE_BASE_TABLE_API_URL.replace(/\/$/, ""); // Remove trailing slash if present
     const fullUrl = `${baseUrl}/${endPoint.replace(/^\//, "")}`; // Remove leading slash from endpoint
 
     const response = await axios.get(fullUrl);

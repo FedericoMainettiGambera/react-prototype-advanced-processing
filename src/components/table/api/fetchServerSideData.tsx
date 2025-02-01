@@ -10,7 +10,7 @@ type Response = {
 // fetch server-side data for table server-side mode
 export const fetchServerSideData = async ({ endPoint, request }: { endPoint: string; request: IServerSideGetRowsRequest }) => {
   try {
-    const baseUrl = env.VITE_BASE_API_URL.replace(/\/$/, ""); // Remove trailing slash if present
+    const baseUrl = env.VITE_BASE_TABLE_API_URL.replace(/\/$/, ""); // Remove trailing slash if present
     const fullUrl = `${baseUrl}/${endPoint.replace(/^\//, "")}`; // Remove leading slash from endpoint
 
     const { data } = await axios.post(fullUrl, request, {

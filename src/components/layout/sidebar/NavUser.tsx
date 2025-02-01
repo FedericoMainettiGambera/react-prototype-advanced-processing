@@ -1,7 +1,3 @@
-"use client";
-
-import { ChevronsUpDown, Info, Laptop, LogOut, Moon, Sun, User } from "lucide-react";
-
 import { useAvatarQuery } from "@/api/query/useAvatarQuery";
 import { useTheme } from "@/components/theme-provider";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -16,6 +12,7 @@ import {
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
 import { useAuth, useSetSubjectsLog } from "@/stores/auth";
 import { useNavigate } from "@tanstack/react-router";
+import { ChevronsUpDown, Info, Laptop, LogOut, Moon, Sun, User } from "lucide-react";
 
 export function NavUser() {
   const { isMobile } = useSidebar();

@@ -5,8 +5,7 @@ export const env = createEnv({
   clientPrefix: "VITE_",
   client: {
     VITE_API_URL: z.string().url(),
-    VITE_BASE_API_URL: z.string().url(),
-    VITE_SYNCFUSION_LICENSE_KEY: z.string(),
+    VITE_BASE_TABLE_API_URL: z.string().url(),
   },
   runtimeEnv: import.meta.env,
 });

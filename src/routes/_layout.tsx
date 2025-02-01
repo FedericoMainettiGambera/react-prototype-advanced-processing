@@ -4,7 +4,7 @@ import { Separator } from "@radix-ui/react-separator";
 import { Outlet, createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_layout")({
-  // remove authenthication check for development purpose
+  // authenthication check should go here, removed because its auth is useless at the moment
   // beforeLoad: ({ context }) => {
   //   if (!context.auth.isSignedIn) {
   //     throw redirect({
